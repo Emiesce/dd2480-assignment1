@@ -178,7 +178,7 @@ public class Decide{
             if(unused_quads < (3 - quads)) return true; 
 
             //change the number of points in each quadrant by removing the first point 
-            // of the list
+            // of the list in our counts
             if(x[i - (qpts -1)] >= 0 && y[i] >= 0){
                 quad1 -= 1; 
             }
