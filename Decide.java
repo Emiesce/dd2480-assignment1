@@ -1,4 +1,4 @@
-
+import static java.lang.Math.*;
 
 public class Decide{
 
@@ -30,16 +30,16 @@ public class Decide{
     // Enum for CONNECTORS
     public enum Connectors { NOTUSED, ORR, ANDD }
 
-    Parameters parameters;
-    double[] x = new double[100];
-    double[] y = new double[100];
+    static Parameters parameters;
+    static double[] x = new double[100];
+    static double[] y = new double[100];
 
-    int NUMPOINTS;
-    Connectors[][] LCM = new Connectors[15][15];
-    boolean[] FUV = new boolean[15];
-    boolean[][] PUM = new boolean[15][15];
-    boolean[] CMV = new boolean[15];
-    boolean launch;
+    static int NUMPOINTS;
+    static Connectors[][] LCM = new Connectors[15][15];
+    static boolean[] FUV = new boolean[15];
+    static boolean[][] PUM = new boolean[15][15];
+    static boolean[] CMV = new boolean[15];
+    static boolean launch;
     
 
     //compare floating point numbers
@@ -76,9 +76,19 @@ public class Decide{
         //TODO
         
     }
-    private static boolean CMV0(){
-        //TODO
-        
+    private static boolean CMV0(double length1){
+        double x1 = x[0]; 
+        double y1 = y[0]; 
+        for(int i = 1; i < NUMPOINTS; ++i) {
+            double x2 = x[i];
+            double y2 = y[i];
+            double square_dist = pow((x1-x2),2) + pow((y1-y2),2);
+            CompType result = doubleCompare(square_dist, pow(length1, 2));
+            if(result == CompType.GT) return true;
+            x1 = x2;
+            y1 = y2;
+        }
+        return false;
     }
     private static boolean CMV1(){
         //TODO
@@ -147,7 +157,7 @@ public class Decide{
 
     private static boolean CMV14(){
         //TODO
-        
+
     }
     
 
