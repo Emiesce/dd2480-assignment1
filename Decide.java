@@ -125,8 +125,28 @@ public class Decide{
         
     }
 
-    private static boolean CMV3(){
-        //TODO
+    private static boolean CMV3(double area1){
+        double x1 = x[0]; 
+        double y1 = y[0]; 
+        double x2 = x[1]; 
+        double y2 = y[1]; 
+        for(int i= 2; i < NUMPOINTS; ++i){
+            double x3 = x[i]; 
+            double y3 = y[i]; 
+
+            double area = (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0 ; //area of the triangle
+            CompType result = doubleCompare(area, area1); 
+            if(result == CompType.GT) return true; //area > area1
+
+            //prepare data for next iteration 
+            x1 = x2;
+            y1 = y2;
+            x2 = x3;
+            y2 = y3; 
+        } 
+        
+        //no set of three consecutive points have their area > area1
+        return false;   
         
     }
 
