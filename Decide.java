@@ -263,15 +263,45 @@ public class Decide{
     }
 
     private static boolean CMV5(){
-        //TODO
-
-        return false;
+        double x1 = x[0]; 
+        
+        for(int i = 1; i < NUMPOINTS; ++i){
+            double x2 = x[i]; 
+            if(doubleCompare(x1, x2) == CompType.GT) return true; 
+            x1 = x2; 
+        }
+        return false; 
+        
     }
 
-    private static boolean CMV6(){
-        //TODO
+    private static boolean CMV6(double dist, int n_pts){
+        if(NUMPOINTS < 3) return false; 
 
-        return false;
+        for(int i = 0; i <= NUMPOINTS - n_pts; ++i){
+            double x1 = x[i]; 
+            double y1 = y[i];
+            double x2 = x[i + n_pts - 1]; 
+            double y2 = y[i + n_pts - 1]; 
+            
+            //same point
+            if(x1 == x2 && y1 == y2){ 
+                 
+                for(int j = i + 1; j < i + n_pts - 1; ++j){
+                    double distance = distance(x1, y1, x[j], y[j]); 
+                    if(doubleCompare(distance, dist) == CompType.GT) return true; 
+                }
+            }else{
+                double denominator = distance(x1, y1, x2, y2); 
+
+                for(int j = i + 1; j < i + n_pts - 1; ++j){
+                    double nominator = Math.abs((x2 - x1) * (y1 - y[i]) - (x1 - x[i]) * (y2 - y1));
+                    double distance = nominator / denominator; 
+                    if(doubleCompare(distance, dist) == CompType.GT) return true; 
+                }
+
+            }
+        }
+        return false;      
     }
 
     private static boolean CMV7(){
