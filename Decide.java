@@ -90,9 +90,34 @@ public class Decide{
         }
         return false;
     }
-    private static boolean CMV1(){
-        //TODO
-        
+    
+    private static boolean CMV1(double radius1){
+        double x1 = x[0]; 
+        double y1 = y[0]; 
+        double x2 = x[1]; 
+        double y2 = y[1]; 
+        double a = distance(x1,y1,x2,y2); 
+        for(int i= 2; i < NUMPOINTS; ++i){
+            double x3 = x[i]; 
+            double y3 = y[i]; 
+            double b = distance(x2,y2,x3,y3); 
+            double c = distance(x3,y3,x1,y1); 
+
+            double s = (a + b + c) / 2.0 ; //semiperimeter of the triangle
+            double circumradius = (a * b * c) / 
+                        (4 * pow(s * (a + b -s) * (a + c -s) * (b + c -s), 0.5)); //the circumradius
+            CompType result = doubleCompare(circumradius, radius1); 
+            if(result == CompType.GT) return true; //circumradius > radius1
+
+            //prepare data for next iteration 
+            x1 = x2;
+            y1 = y2;
+            x2 = x3;
+            y2 = y3;
+            a=b; 
+        } 
+        //no set of three consecutive points have their circumradius > radius
+        return false;      
     }
 
     private static boolean CMV2(){
@@ -158,6 +183,10 @@ public class Decide{
     private static boolean CMV14(){
         //TODO
 
+    }
+
+    private static double distance(double x1, double y1, double x2, double y2){
+        return pow((pow(x1-x2, 2) + pow(y1-y2, 2)), 0.5); 
     }
     
 
