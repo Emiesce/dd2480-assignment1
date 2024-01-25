@@ -137,6 +137,7 @@ public class Decide{
 
     private static boolean CMV5(){
         double x1 = x[0]; 
+        
         for(int i = 1; i < NUMPOINTS; ++i){
             double x2 = x[i]; 
             if(doubleCompare(x1, x2) == CompType.GT) return true; 
