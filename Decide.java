@@ -162,7 +162,31 @@ public class Decide{
 
     private static boolean CMV10(){
         //TODO
-        
+        if(NUMPOINTS < 5) return false;
+
+        double x1;
+        double y1;
+
+        double x2;
+        double y2;
+
+        double x3;
+        double y3;
+
+        for(int i = 0; i < NUMPOINTS - (parameters.EPTS + parameters.FPTS); i++) {
+            x1 = x[i];
+            y1 = y[i];
+
+            x2 = x[i + parameters.EPTS];
+            y2 = y[i + parameters.EPTS];
+
+            x3 = x[i + parameters.EPTS + parameters.FPTS];
+            y3 = y[i + parameters.EPTS + parameters.FPTS];
+
+
+        }
+
+        return false;
     }
 
     private static boolean CMV11(){
@@ -188,8 +212,16 @@ public class Decide{
     private static double distance(double x1, double y1, double x2, double y2){
         return pow((pow(x1-x2, 2) + pow(y1-y2, 2)), 0.5); 
     }
-    
 
+    /**
+     * helper function to calculate area of 3 points using shoelace formula
+     * @return area of triangle
+     */
+    private static double triangleArea(double x1, double y1,
+                                       double x2, double y2,
+                                       double x3, double y3) {
+        return 0.5 * Math.abs((x1*y2 + x2*y3 + x3*y1) - (x2*y1 + x3*y2 + x1*y3));
+    }
 
     
 }
