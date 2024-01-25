@@ -188,8 +188,70 @@ public class Decide{
         
     }
 
-    private static boolean CMV4(){
-        //TODO
+    private static boolean CMV4(int qpts, int quads){
+        //number of points in each quadrant
+        int quad1 = 0; 
+        int quad2 = 0; 
+        int quad3 = 0; 
+        int quad4 = 0; 
+
+        //initialization of number of points in each quadrant
+        for(int i = 0; i < qpts -1; ++i){
+            if(x[i] >= 0 && y[i] >= 0){
+                quad1 += 1; 
+            }
+            else if(x[i] < 0 && y[i] >= 0){
+                quad2 += 1; 
+            }
+            else if(x[i] < 0 && y[i] <= 0){
+                quad3 += 1; 
+            }
+            else if(x[i] < 0 && y[i] > 0){
+                quad4 += 1; 
+            }
+        }
+
+        for(int i = qpts - 1; i < NUMPOINTS; ++i){
+            //change the number of points in each quadrant by taking into account the
+            //new point of the list 
+            if (x[i] >= 0 && y[i] >= 0){
+                quad1 += 1; 
+            }
+            else if(x[i] < 0 && y[i] >= 0){
+                quad2 += 1; 
+            }
+            else if(x[i] < 0 && y[i] <= 0){
+                quad3 += 1; 
+            }
+            else if(x[i] < 0 && y[i] > 0){
+                quad4 += 1; 
+            }
+
+            int unused_quads = 0; 
+            if(quad1 == 0) unused_quads +=1; 
+            if(quad2 == 0) unused_quads +=1; 
+            if(quad3 == 0) unused_quads +=1; 
+            if(quad4 == 0) unused_quads +=1; 
+
+            if(unused_quads < (3 - quads)) return true; 
+
+            //change the number of points in each quadrant by removing the first point 
+            // of the list in our counts
+            if(x[i - (qpts -1)] >= 0 && y[i] >= 0){
+                quad1 -= 1; 
+            }
+            else if(x[i - (qpts -1)] < 0 && y[i] >= 0){
+                quad2 -= 1; 
+            }
+            else if(x[i - (qpts -1)] < 0 && y[i] <= 0){
+                quad3 -= 1; 
+            }
+            else if(x[i - (qpts -1)] < 0 && y[i] > 0){
+                quad4 -= 1; 
+            }
+        }
+
+        return false; 
         
     }
 
