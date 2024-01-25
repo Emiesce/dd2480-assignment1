@@ -63,18 +63,25 @@ public class Decide{
     }
     private static boolean decide(){
         //TODO
+
+        return false;
     }
     private static boolean[] FUVCreator(){
         //TODO
+
+        return new boolean[0];
     }
 
     private static boolean[][] PUMCreator(){
         //TODO
+
+        return new boolean[0][0];
     }
 
     private static boolean[] CMVCreator(){
         //TODO
-        
+
+        return new boolean[0];
     }
     private static boolean CMV0(double length1){
         double x1 = x[0]; 
@@ -122,46 +129,53 @@ public class Decide{
 
     private static boolean CMV2(){
         //TODO
-        
+
+        return false;
     }
 
     private static boolean CMV3(){
         //TODO
-        
+
+        return false;
     }
 
     private static boolean CMV4(){
         //TODO
-        
+
+        return false;
     }
 
     private static boolean CMV5(){
         //TODO
-        
+
+        return false;
     }
 
     private static boolean CMV6(){
         //TODO
-        
+
+        return false;
     }
 
     private static boolean CMV7(){
         //TODO
-        
+
+        return false;
     }
 
     private static boolean CMV8(){
         //TODO
-        
+
+        return false;
     }
 
     private static boolean CMV9(){
         //TODO
-        
+
+        return false;
     }
 
-    private static boolean CMV10(){
-        //TODO
+    public boolean CMV10(){
         if(NUMPOINTS < 5) return false;
 
         double x1;
@@ -183,7 +197,7 @@ public class Decide{
             x3 = x[i + parameters.EPTS + parameters.FPTS];
             y3 = y[i + parameters.EPTS + parameters.FPTS];
 
-
+            if(triangleArea(x1, y1, x2, y2, x3, y3) > parameters.AREA1) return true;
         }
 
         return false;
@@ -191,22 +205,26 @@ public class Decide{
 
     private static boolean CMV11(){
         //TODO
-        
+
+        return false;
     }
 
     private static boolean CMV12(){
         //TODO
-        
+
+        return false;
     }
 
     private static boolean CMV13(){
         //TODO
-        
+
+        return false;
     }
 
     private static boolean CMV14(){
         //TODO
 
+        return false;
     }
 
     private static double distance(double x1, double y1, double x2, double y2){
@@ -217,9 +235,9 @@ public class Decide{
      * helper function to calculate area of 3 points using shoelace formula
      * @return area of triangle
      */
-    private static double triangleArea(double x1, double y1,
-                                       double x2, double y2,
-                                       double x3, double y3) {
+    public double triangleArea(double x1, double y1,
+                               double x2, double y2,
+                               double x3, double y3) {
         return 0.5 * Math.abs((x1*y2 + x2*y3 + x3*y1) - (x2*y1 + x3*y2 + x1*y3));
     }
 

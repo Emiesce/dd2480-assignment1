@@ -40,4 +40,9 @@ public class DecideTest {
         assertEquals(0.5, result, delta);
     }
 
+    @Test
+    public void testCMV10LesserNUMPOINTS() {
+        Decide decide = new Decide();
+    }
+
 }
