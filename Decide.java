@@ -127,22 +127,139 @@ public class Decide{
         return false;      
     }
 
-    private static boolean CMV2(){
-        //TODO
+    private static boolean CMV2(double epsilon){
+        double x1 = x[0]; 
+        double y1 = y[0]; 
 
-        return false;
+        double x_vertex = x[1]; 
+        double y_vertex = y[1]; 
+
+        for(int i = 2; i < NUMPOINTS; ++i){
+            double x2 = x[i]; 
+            double y2 = y[i]; 
+
+            if((x1 == x_vertex && y1 == y_vertex) || (x2 == x_vertex && y2 == y_vertex)){
+                continue; //go on to next iteration since one point coincide with the vertex
+            }
+
+            double a_x = x_vertex - x1; 
+            double a_y = y_vertex - y1; 
+            double b_x = x_vertex - x2; 
+            double b_y = y_vertex - y2;
+
+            double a_dot_b = a_x * b_x + a_y * b_y; 
+            double a_norm = distance(a_x, a_y, 0, 0); 
+            double b_norm = distance(b_x, b_y, 0, 0); 
+
+            double angle = acos(a_dot_b / (a_norm * b_norm)); 
+            angle = (angle + 2 * Math.PI) % (2 * Math.PI); // Ensure the angle is in the range [0, 2π)
+
+            if(doubleCompare(angle, PI - epsilon) == CompType.LT || 
+                doubleCompare(angle, PI + epsilon) == CompType.GT){
+                    return true; 
+                }
+
+            //prepare data for next iteration 
+            x1 = x_vertex; 
+            y1 = y_vertex; 
+            x_vertex = x2; 
+            y_vertex = y2; 
+        }
+
+        //no three consecutive points such that angle < (PI − EPSILON) or angle > (PI + EPSILON)
+        return false;         
     }
 
-    private static boolean CMV3(){
-        //TODO
+    private static boolean CMV3(double area1){
+        double x1 = x[0]; 
+        double y1 = y[0]; 
+        double x2 = x[1]; 
+        double y2 = y[1]; 
+        for(int i= 2; i < NUMPOINTS; ++i){
+            double x3 = x[i]; 
+            double y3 = y[i]; 
 
-        return false;
+            double area = (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0 ; //area of the triangle
+            CompType result = doubleCompare(area, area1); 
+            if(result == CompType.GT) return true; //area > area1
+
+            //prepare data for next iteration 
+            x1 = x2;
+            y1 = y2;
+            x2 = x3;
+            y2 = y3; 
+        } 
+        
+        //no set of three consecutive points have their area > area1
+        return false;   
+        
     }
 
-    private static boolean CMV4(){
-        //TODO
+    private static boolean CMV4(int qpts, int quads){
+        //number of points in each quadrant
+        int quad1 = 0; 
+        int quad2 = 0; 
+        int quad3 = 0; 
+        int quad4 = 0; 
 
-        return false;
+        //initialization of number of points in each quadrant
+        for(int i = 0; i < qpts -1; ++i){
+            if(x[i] >= 0 && y[i] >= 0){
+                quad1 += 1; 
+            }
+            else if(x[i] < 0 && y[i] >= 0){
+                quad2 += 1; 
+            }
+            else if(x[i] < 0 && y[i] <= 0){
+                quad3 += 1; 
+            }
+            else if(x[i] < 0 && y[i] > 0){
+                quad4 += 1; 
+            }
+        }
+
+        for(int i = qpts - 1; i < NUMPOINTS; ++i){
+            //change the number of points in each quadrant by taking into account the
+            //new point of the list 
+            if (x[i] >= 0 && y[i] >= 0){
+                quad1 += 1; 
+            }
+            else if(x[i] < 0 && y[i] >= 0){
+                quad2 += 1; 
+            }
+            else if(x[i] < 0 && y[i] <= 0){
+                quad3 += 1; 
+            }
+            else if(x[i] < 0 && y[i] > 0){
+                quad4 += 1; 
+            }
+
+            int unused_quads = 0; 
+            if(quad1 == 0) unused_quads +=1; 
+            if(quad2 == 0) unused_quads +=1; 
+            if(quad3 == 0) unused_quads +=1; 
+            if(quad4 == 0) unused_quads +=1; 
+
+            if(unused_quads < (3 - quads)) return true; 
+
+            //change the number of points in each quadrant by removing the first point 
+            // of the list in our counts
+            if(x[i - (qpts -1)] >= 0 && y[i] >= 0){
+                quad1 -= 1; 
+            }
+            else if(x[i - (qpts -1)] < 0 && y[i] >= 0){
+                quad2 -= 1; 
+            }
+            else if(x[i - (qpts -1)] < 0 && y[i] <= 0){
+                quad3 -= 1; 
+            }
+            else if(x[i - (qpts -1)] < 0 && y[i] > 0){
+                quad4 -= 1; 
+            }
+        }
+
+        return false; 
+        
     }
 
     private static boolean CMV5(){
