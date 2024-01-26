@@ -148,6 +148,37 @@ public class DecideTest {
     }
 
 
+    @Test
+    public void testCMV2() {
+        double x1 = 0;
+        double y1 = 0;
+
+        double x2 = 0;
+        double y2 = 0;
+
+        double x3 = 1;
+        double y3 = 0;
+
+        double x4 = 1;
+        double y4 = 1;
+
+        decide.NUMPOINTS = 3;
+        decide.x[0] = x1;
+        decide.y[0] = y1;
+        decide.x[1] = x2;
+        decide.y[1] = y2;
+        decide.x[2] = x3;
+        decide.y[2] = y3;
+        decide.x[3] = x4;
+        decide.y[3] = y4;
+
+        assertFalse("since two points coincide, it should return false", decide.CMV2(3));
+        decide.NUMPOINTS = 4;
+        assertTrue("the angle formed by p2, p3, p4 is pi/2 so it should return true with epsilon = 1", decide.CMV2(1));
+        assertFalse("the angle formed by p2, p3, p4 is pi/2 so it should return false with epsilon = 2", decide.CMV2(2));
+    }
+
+
 
     @Test
     public void testCMV10() {
