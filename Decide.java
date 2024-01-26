@@ -322,7 +322,7 @@ public class Decide{
         return false;
     }
 
-    public boolean CMV10(){
+    public boolean CMV10(double area1, int epts, int fpts){
         if(NUMPOINTS < 5) return false;
 
         double x1;
@@ -334,17 +334,17 @@ public class Decide{
         double x3;
         double y3;
 
-        for(int i = 0; i < NUMPOINTS - (parameters.EPTS + parameters.FPTS); i++) {
+        for(int i = 0; i < NUMPOINTS - (epts + fpts); i++) {
             x1 = x[i];
             y1 = y[i];
 
-            x2 = x[i + parameters.EPTS];
-            y2 = y[i + parameters.EPTS];
+            x2 = x[i + epts+1];
+            y2 = y[i + epts+1];
 
-            x3 = x[i + parameters.EPTS + parameters.FPTS];
-            y3 = y[i + parameters.EPTS + parameters.FPTS];
+            x3 = x[i + epts + fpts + 2];
+            y3 = y[i + epts + fpts + 2];
 
-            if(triangleArea(x1, y1, x2, y2, x3, y3) > parameters.AREA1) return true;
+            if(doubleCompare(triangleArea(x1, y1, x2, y2, x3, y3), area1) == CompType.GT) return true;
         }
 
         return false;
