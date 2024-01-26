@@ -4,7 +4,7 @@ public class Decide{
 
     public final double PI = 3.1415926535;
 
-    private class Parameters{
+    public class Parameters{
         double LENGTH1;    // Length in LICs 0, 7, 12
         double RADIUS1;    // Radius in LICs 1, 8, 13
         double EPSILON;    // Deviation from PI in LICs 2, 9
@@ -30,7 +30,7 @@ public class Decide{
     // Enum for CONNECTORS
     public enum Connectors { NOTUSED, ORR, ANDD }
 
-    Parameters parameters;
+    Parameters parameters = new Parameters();
     double[] x = new double[100];
     double[] y = new double[100];
 
