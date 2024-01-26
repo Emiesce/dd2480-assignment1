@@ -118,6 +118,36 @@ public class DecideTest {
     }
 
 
+    @Test
+    public void testCMV1() {
+        double x1 = 0;
+        double y1 = 0;
+
+        double x2 = 1;
+        double y2 = 0;
+
+        double x3 = 0;
+        double y3 = 1;
+
+        double x4 = 0;
+        double y4 = -1;
+
+        decide.NUMPOINTS = 4;
+        decide.x[0] = x1;
+        decide.y[0] = y1;
+        decide.x[1] = x2;
+        decide.y[1] = y2;
+        decide.x[2] = x3;
+        decide.y[2] = y3;
+        decide.x[3] = x4;
+        decide.y[3] = y4;
+
+        assertTrue("the radius param. is 0.5, point 2,3,4 can only be contain on/in a circle of radius minimum 1", decide.CMV1(0.5));
+        assertFalse("the radius param. is 10, points 2,3,4 can be contained in such a circle", decide.CMV1(10));
+        assertFalse("the radius param. is 1, points 2,3,4 can be contained ON such a circle", decide.CMV1(1));
+    }
+
+
 
     @Test
     public void testCMV10() {
