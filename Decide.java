@@ -83,9 +83,11 @@ public class Decide{
 
         return new boolean[0];
     }
-     boolean CMV0(double length1){
+
+    boolean CMV0(double length1){
         double x1 = x[0]; 
         double y1 = y[0]; 
+
         for(int i = 1; i < NUMPOINTS; ++i) {
             double x2 = x[i];
             double y2 = y[i];
@@ -103,17 +105,12 @@ public class Decide{
         double y1 = y[0]; 
         double x2 = x[1]; 
         double y2 = y[1]; 
-        double a = distance(x1,y1,x2,y2); 
+
         for(int i= 2; i < NUMPOINTS; ++i){
             double x3 = x[i]; 
             double y3 = y[i]; 
-            double b = distance(x2,y2,x3,y3); 
-            double c = distance(x3,y3,x1,y1); 
-
-            double s = (a + b + c) / 2.0 ; //semiperimeter of the triangle
-            double circumradius = (a * b * c) / 
-                        (4 * pow(s * (a + b -s) * (a + c -s) * (b + c -s), 0.5)); //the circumradius
-            CompType result = doubleCompare(circumradius, radius1); 
+            double radius = smallestRadius(x1, y1, x2, y2, x3, y3); //the circumradius
+            CompType result = doubleCompare(radius, radius1); 
             if(result == CompType.GT) return true; //circumradius > radius1
 
             //prepare data for next iteration 
@@ -121,7 +118,6 @@ public class Decide{
             y1 = y2;
             x2 = x3;
             y2 = y3;
-            a=b; 
         } 
         //no set of three consecutive points have their circumradius > radius
         return false;      
@@ -165,21 +161,21 @@ public class Decide{
             x_vertex = x2; 
             y_vertex = y2; 
         }
-
         //no three consecutive points such that angle < (PI − EPSILON) or angle > (PI + EPSILON)
         return false;         
     }
 
-     boolean CMV3(double area1){
+    boolean CMV3(double area1){
         double x1 = x[0]; 
         double y1 = y[0]; 
         double x2 = x[1]; 
         double y2 = y[1]; 
+
         for(int i= 2; i < NUMPOINTS; ++i){
             double x3 = x[i]; 
             double y3 = y[i]; 
 
-            double area = (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0 ; //area of the triangle
+            double area = triangleArea(x1, y1, x2, y2, x3, y3); //area of the triangle
             CompType result = doubleCompare(area, area1); 
             if(result == CompType.GT) return true; //area > area1
 
@@ -189,10 +185,8 @@ public class Decide{
             x2 = x3;
             y2 = y3; 
         } 
-        
         //no set of three consecutive points have their area > area1
-        return false;   
-        
+        return false;       
     }
 
      boolean CMV4(int qpts, int quads){
@@ -206,14 +200,11 @@ public class Decide{
         for(int i = 0; i < qpts -1; ++i){
             if(x[i] >= 0 && y[i] >= 0){
                 quad1 += 1; 
-            }
-            else if(x[i] < 0 && y[i] >= 0){
+            }else if(x[i] < 0 && y[i] >= 0){
                 quad2 += 1; 
-            }
-            else if(x[i] < 0 && y[i] <= 0){
+            }else if(x[i] < 0 && y[i] <= 0){
                 quad3 += 1; 
-            }
-            else if(x[i] < 0 && y[i] > 0){
+            }else if(x[i] < 0 && y[i] > 0){
                 quad4 += 1; 
             }
         }
@@ -257,12 +248,10 @@ public class Decide{
                 quad4 -= 1; 
             }
         }
-
-        return false; 
-        
+        return false;     
     }
 
-     boolean CMV5(){
+    boolean CMV5(){
         double x1 = x[0]; 
         
         for(int i = 1; i < NUMPOINTS; ++i){
@@ -270,11 +259,10 @@ public class Decide{
             if(doubleCompare(x1, x2) == CompType.GT) return true; 
             x1 = x2; 
         }
-        return false; 
-        
+        return false;     
     }
 
-     boolean CMV6(double dist, int n_pts){
+    boolean CMV6(double dist, int n_pts){
         if(NUMPOINTS < 3) return false; 
 
         for(int i = 0; i <= NUMPOINTS - n_pts; ++i){
@@ -298,7 +286,6 @@ public class Decide{
                     double distance = nominator / denominator; 
                     if(doubleCompare(distance, dist) == CompType.GT) return true; 
                 }
-
             }
         }
         return false;      
@@ -389,6 +376,59 @@ public class Decide{
         return 0.5 * Math.abs((x1*y2 + x2*y3 + x3*y1) - (x2*y1 + x3*y2 + x1*y3));
     }
 
+    /**
+     * helper function to calculate the radius of the smallest circle
+     * containing three points
+     * 
+     * @return the radius of the smallest circle
+     */
+    public double smallestRadius(double x1, double y1,
+            double x2, double y2,
+            double x3, double y3) {
+        double a = distance(x1, y1, x2, y2);
+        double b = distance(x2, y2, x3, y3);
+        double c = distance(x3, y3, x1, y1);
+        // check if a is the longest side
+        if (doubleCompare(a, b) == CompType.GT && doubleCompare(a, c) == CompType.GT) {
+            double radius = a / 2.0;
+            double center_x = (x1 + x2) / 2.0;
+            double center_y = (y1 + y2) / 2.0;
+            double distCenter2P3 = distance(center_x, center_y, x3, y3);
+            // checks if the circle includes the third point (distCenter2P3 <= radius)
+            if (!(doubleCompare(distCenter2P3, radius) == CompType.GT)) {
+                return radius;
+            }
+        }
+        // check if b is the longest side
+        else if (doubleCompare(b, c) == CompType.GT) {
+            double radius = b / 2.0;
+            double center_x = (x2 + x3) / 2.0;
+            double center_y = (y2 + y3) / 2.0;
+            double distCenter2P1 = distance(center_x, center_y, x1, y1);
+            // checks if the circles includes the first point
+            if (!(doubleCompare(distCenter2P1, radius) == CompType.GT)) {
+                return radius;
+            }
+        }
+        // c is the longest side
+        else {
+            double radius = c / 2.0;
+            double center_x = (x1 + x3) / 2.0;
+            double center_y = (y1 + y3) / 2.0;
+            double distCenter2P2 = distance(center_x, center_y, x2, y2);
+            // checks if the circles includes the first point
+            if (!(doubleCompare(distCenter2P2, radius) == CompType.GT)) {
+                return radius;
+            }
+        }
+        // if no circle of radius a/2, b/2 or c/2 contains the three point
+        // then the smallest circle containing the three point is the
+        // circumcircle, with its radius the circumradius
+        double s = (a + b + c) / 2.0; // semiperimeter of the triangle
+        double circumradius = (a * b * c) /
+                (4 * pow(s * (a + b - s) * (a + c - s) * (b + c - s), 0.5));
+        return circumradius;
+    }
     
 }
 
