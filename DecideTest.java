@@ -89,6 +89,35 @@ public class DecideTest {
     }
 
 
+    @Test
+    public void testCMV0() {
+        double x1 = 0;
+        double y1 = 0;
+
+        double x2 = 1;
+        double y2 = 1;
+
+        double x3 = 10;
+        double y3 = 1;
+
+        double x4 = 10;
+        double y4 = 2;
+
+        decide.NUMPOINTS = 4;
+        decide.x[0] = x1;
+        decide.y[0] = y1;
+        decide.x[1] = x2;
+        decide.y[1] = y2;
+        decide.x[2] = x3;
+        decide.y[2] = y3;
+        decide.x[3] = x4;
+        decide.y[3] = y4;
+
+        assertTrue("the length is 5, point 3 & 4 are further away but it returns false", decide.CMV0(5));
+        assertFalse("the length is 10, no two consecutive points are that far away but cmv0(10) returns true", decide.CMV0(10));
+    }
+
+
 
     @Test
     public void testCMV10() {
