@@ -47,6 +47,50 @@ public class DecideTest {
     }
 
     @Test
+    public void testDistance() {
+        double x1 = 0;
+        double y1 = 0;
+
+        double x2 = 3;
+        double y2 = 4;
+
+        double x3 = 12;
+        double y3 = 5;
+
+        double result1 = decide.distance(x1, y1, x2, y2);
+        double result2 = decide.distance(x1, y1, x3, y3);
+
+        assertEquals("the distance is supposed to be 5 but isn't", 5, result1, delta);
+        assertEquals("the distance is supposed to be 13 but isn't", 13, result2, delta);
+    }
+
+    @Test
+    public void testSmallestRadius() {
+        double x1 = 0;
+        double y1 = 0;
+
+        double x2 = 1;
+        double y2 = 0;
+
+        double x3 = -2;
+        double y3 = 0;
+
+        double x4 = 0;
+        double y4 = -1;
+
+        double x5 = -1;
+        double y5 = 0;
+
+        double result1 = decide.smallestRadius(x1, y1, x2, y2, x3, y3);
+        double result2 = decide.smallestRadius(x2, y2, x5, y5, x4, y4);
+
+        assertEquals("the radius is supposed to be 1.5 but isn't", 1.5, result1, delta);
+        assertEquals("the radius is supposed to be 1 but isn't", 1, result2, delta);
+    }
+
+
+
+    @Test
     public void testCMV10() {
         double x1 = 0;
         double y1 = 0;
