@@ -43,14 +43,7 @@ public class DecideTest {
 
         double result = decide.triangleArea(x1, y1, x2, y2, x3, y3);
 
-        assertEquals(0.5, result, delta);
-    }
-
-    @Test
-    public void testCMV10LesserNUMPOINTS() {
-        decide.NUMPOINTS = 4;
-
-        assertEquals(false, decide.CMV10());
+        assertEquals("the area calculation is not correct", 0.5, result, delta);
     }
 
     @Test
@@ -71,11 +64,9 @@ public class DecideTest {
         decide.y[2] = y2;
         decide.x[4] = x3;
         decide.y[4] = y3;
-        decide.parameters.AREA1 = 1;
-        decide.parameters.EPTS = 2;
-        decide.parameters.FPTS = 2;
 
-        assertEquals(false, decide.CMV10());
+        assertTrue("the parameter area is greater than the triangle but returns false", decide.CMV10(1, 1, 1));
+        assertFalse("the parameter area is lesser than the triangle but returns true", decide.CMV10(0.2, 1, 1))
     }
 
 }
