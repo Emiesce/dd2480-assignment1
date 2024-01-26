@@ -2,9 +2,9 @@ import static java.lang.Math.*;
 
 public class Decide{
 
-    public static final double PI = 3.1415926535;
+    public final double PI = 3.1415926535;
 
-    private class Parameters{
+    public class Parameters{
         double LENGTH1;    // Length in LICs 0, 7, 12
         double RADIUS1;    // Radius in LICs 1, 8, 13
         double EPSILON;    // Deviation from PI in LICs 2, 9
@@ -30,20 +30,20 @@ public class Decide{
     // Enum for CONNECTORS
     public enum Connectors { NOTUSED, ORR, ANDD }
 
-    static Parameters parameters;
-    static double[] x = new double[100];
-    static double[] y = new double[100];
+    Parameters parameters = new Parameters();
+    double[] x = new double[100];
+    double[] y = new double[100];
 
-    static int NUMPOINTS;
-    static Connectors[][] LCM = new Connectors[15][15];
-    static boolean[] FUV = new boolean[15];
-    static boolean[][] PUM = new boolean[15][15];
-    static boolean[] CMV = new boolean[15];
-    static boolean launch;
+    int NUMPOINTS;
+    Connectors[][] LCM = new Connectors[15][15];
+    boolean[] FUV = new boolean[15];
+    boolean[][] PUM = new boolean[15][15];
+    boolean[] CMV = new boolean[15];
+    boolean launch;
     
 
     //compare floating point numbers
-    public static CompType doubleCompare(double A, double B) {
+    public CompType doubleCompare(double A, double B) {
         if (Math.abs(A - B) < 0.000001) {
             return CompType.EQ;
         } else if (A < B) {
@@ -58,32 +58,32 @@ public class Decide{
 
 
 
-    public static void main(String[] args){
+    public void main(String[] args){
         //TODO
     }
-    private static boolean decide(){
+     boolean decide(){
         //TODO
 
         return false;
     }
-    private static boolean[] FUVCreator(){
+     boolean[] FUVCreator(){
         //TODO
 
         return new boolean[0];
     }
 
-    private static boolean[][] PUMCreator(){
+     boolean[][] PUMCreator(){
         //TODO
 
         return new boolean[0][0];
     }
 
-    private static boolean[] CMVCreator(){
+     boolean[] CMVCreator(){
         //TODO
 
         return new boolean[0];
     }
-    private static boolean CMV0(double length1){
+     boolean CMV0(double length1){
         double x1 = x[0]; 
         double y1 = y[0]; 
         for(int i = 1; i < NUMPOINTS; ++i) {
@@ -98,7 +98,7 @@ public class Decide{
         return false;
     }
     
-    private static boolean CMV1(double radius1){
+     boolean CMV1(double radius1){
         double x1 = x[0]; 
         double y1 = y[0]; 
         double x2 = x[1]; 
@@ -127,7 +127,7 @@ public class Decide{
         return false;      
     }
 
-    private static boolean CMV2(double epsilon){
+     boolean CMV2(double epsilon){
         double x1 = x[0]; 
         double y1 = y[0]; 
 
@@ -170,7 +170,7 @@ public class Decide{
         return false;         
     }
 
-    private static boolean CMV3(double area1){
+     boolean CMV3(double area1){
         double x1 = x[0]; 
         double y1 = y[0]; 
         double x2 = x[1]; 
@@ -195,7 +195,7 @@ public class Decide{
         
     }
 
-    private static boolean CMV4(int qpts, int quads){
+     boolean CMV4(int qpts, int quads){
         //number of points in each quadrant
         int quad1 = 0; 
         int quad2 = 0; 
@@ -262,7 +262,7 @@ public class Decide{
         
     }
 
-    private static boolean CMV5(){
+     boolean CMV5(){
         double x1 = x[0]; 
         
         for(int i = 1; i < NUMPOINTS; ++i){
@@ -274,7 +274,7 @@ public class Decide{
         
     }
 
-    private static boolean CMV6(double dist, int n_pts){
+     boolean CMV6(double dist, int n_pts){
         if(NUMPOINTS < 3) return false; 
 
         for(int i = 0; i <= NUMPOINTS - n_pts; ++i){
@@ -304,19 +304,19 @@ public class Decide{
         return false;      
     }
 
-    private static boolean CMV7(){
+     boolean CMV7(){
         //TODO
 
         return false;
     }
 
-    private static boolean CMV8(){
+     boolean CMV8(){
         //TODO
 
         return false;
     }
 
-    private static boolean CMV9(){
+     boolean CMV9(){
         //TODO
 
         return false;
@@ -350,31 +350,32 @@ public class Decide{
         return false;
     }
 
-    private static boolean CMV11(){
+
+    boolean CMV11(){
         //TODO
 
         return false;
     }
 
-    private static boolean CMV12(){
+     boolean CMV12(){
         //TODO
 
         return false;
     }
 
-    private static boolean CMV13(){
+     boolean CMV13(){
         //TODO
 
         return false;
     }
 
-    private static boolean CMV14(){
+     boolean CMV14(){
         //TODO
 
         return false;
     }
 
-    private static double distance(double x1, double y1, double x2, double y2){
+     double distance(double x1, double y1, double x2, double y2){
         return pow((pow(x1-x2, 2) + pow(y1-y2, 2)), 0.5); 
     }
 
