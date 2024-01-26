@@ -63,18 +63,25 @@ public class Decide{
     }
     private static boolean decide(){
         //TODO
+
+        return false;
     }
     private static boolean[] FUVCreator(){
         //TODO
+
+        return new boolean[0];
     }
 
     private static boolean[][] PUMCreator(){
         //TODO
+
+        return new boolean[0][0];
     }
 
     private static boolean[] CMVCreator(){
         //TODO
-        
+
+        return new boolean[0];
     }
     private static boolean CMV0(double length1){
         double x1 = x[0]; 
@@ -299,49 +306,87 @@ public class Decide{
 
     private static boolean CMV7(){
         //TODO
-        
+
+        return false;
     }
 
     private static boolean CMV8(){
         //TODO
-        
+
+        return false;
     }
 
     private static boolean CMV9(){
         //TODO
-        
+
+        return false;
     }
 
-    private static boolean CMV10(){
-        //TODO
-        
+    public boolean CMV10(double area1, int epts, int fpts){
+        if(NUMPOINTS < 5) return false;
+
+        double x1;
+        double y1;
+
+        double x2;
+        double y2;
+
+        double x3;
+        double y3;
+
+        for(int i = 0; i < NUMPOINTS - (epts + fpts); i++) {
+            x1 = x[i];
+            y1 = y[i];
+
+            x2 = x[i + epts+1];
+            y2 = y[i + epts+1];
+
+            x3 = x[i + epts + fpts + 2];
+            y3 = y[i + epts + fpts + 2];
+
+            if(doubleCompare(triangleArea(x1, y1, x2, y2, x3, y3), area1) == CompType.GT) return true;
+        }
+
+        return false;
     }
 
     private static boolean CMV11(){
         //TODO
-        
+
+        return false;
     }
 
     private static boolean CMV12(){
         //TODO
-        
+
+        return false;
     }
 
     private static boolean CMV13(){
         //TODO
-        
+
+        return false;
     }
 
     private static boolean CMV14(){
         //TODO
 
+        return false;
     }
 
     private static double distance(double x1, double y1, double x2, double y2){
         return pow((pow(x1-x2, 2) + pow(y1-y2, 2)), 0.5); 
     }
-    
 
+    /**
+     * helper function to calculate area of 3 points using shoelace formula
+     * @return area of triangle
+     */
+    public double triangleArea(double x1, double y1,
+                               double x2, double y2,
+                               double x3, double y3) {
+        return 0.5 * Math.abs((x1*y2 + x2*y3 + x3*y1) - (x2*y1 + x3*y2 + x1*y3));
+    }
 
     
 }
