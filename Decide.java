@@ -321,15 +321,16 @@ public class Decide{
         double x3;
         double y3;
 
-        for(int i = 0; i < NUMPOINTS - (epts + fpts); i++) {
+        for(int i = 0; i < NUMPOINTS - (epts + fpts + 2); i++) {
             x1 = x[i];
             y1 = y[i];
 
-            x2 = x[i + epts+1];
-            y2 = y[i + epts+1];
+            x2 = x[i + epts + 1];
+            y2 = y[i + epts + 1];
 
             x3 = x[i + epts + fpts + 2];
             y3 = y[i + epts + fpts + 2];
+
 
             if(doubleCompare(triangleArea(x1, y1, x2, y2, x3, y3), area1) == CompType.GT) return true;
         }
