@@ -2,29 +2,29 @@ import static java.lang.Math.*;
 
 public class Decide {
 
-    public static final double PI = 3.1415926535;
+    public final double PI = 3.1415926535;
 
-    private class Parameters {
-        double LENGTH1; // Length in LICs 0, 7, 12
-        double RADIUS1; // Radius in LICs 1, 8, 13
-        double EPSILON; // Deviation from PI in LICs 2, 9
-        double AREA1; // Area in LICs 3, 10, 14
-        int QPTS; // No. of consecutive points in LIC 4
-        int QUADS; // No. of quadrants in LIC 4
-        double DIST; // Distance in LIC 6
-        int NPTS; // No. of consecutive points in LIC 6
-        int KPTS; // No. of int. points in LICs 7, 12
-        int APTS; // No. of int. points in LICs 8, 13
-        int BPTS; // No. of int. points in LICs 8, 13
-        int CPTS; // No. of int. points in LIC 9
-        int DPTS; // No. of int. points in LIC 9
-        int EPTS; // No. of int. points in LICs 10, 14
-        int FPTS; // No. of int. points in LICs 10, 14
-        int GPTS; // No. of int. points in LIC 11
-        double LENGTH2; // Maximum length in LIC 12
-        double RADIUS2; // Maximum radius in LIC 13
-        double AREA2; // Maximum area in LIC 14
 
+    public class Parameters{
+        double LENGTH1;    // Length in LICs 0, 7, 12
+        double RADIUS1;    // Radius in LICs 1, 8, 13
+        double EPSILON;    // Deviation from PI in LICs 2, 9
+        double AREA1;      // Area in LICs 3, 10, 14
+        int QPTS;          // No. of consecutive points in LIC 4
+        int QUADS;         // No. of quadrants in LIC 4
+        double DIST;       // Distance in LIC 6
+        int NPTS;          // No. of consecutive points in LIC 6
+        int KPTS;          // No. of int. points in LICs 7, 12
+        int APTS;          // No. of int. points in LICs 8, 13
+        int BPTS;          // No. of int. points in LICs 8, 13
+        int CPTS;          // No. of int. points in LIC 9
+        int DPTS;          // No. of int. points in LIC 9
+        int EPTS;          // No. of int. points in LICs 10, 14
+        int FPTS;          // No. of int. points in LICs 10, 14
+        int GPTS;          // No. of int. points in LIC 11
+        double LENGTH2;    // Maximum length in LIC 12
+        double RADIUS2;    // Maximum radius in LIC 13
+        double AREA2;      // Maximum area in LIC 14
     }
 
     // Enum for CONNECTORS
@@ -32,19 +32,20 @@ public class Decide {
         NOTUSED, ORR, ANDD
     }
 
-    static Parameters parameters;
-    static double[] x = new double[100];
-    static double[] y = new double[100];
+    Parameters parameters = new Parameters();
+    double[] x = new double[100];
+    double[] y = new double[100];
 
-    static int NUMPOINTS;
-    static Connectors[][] LCM = new Connectors[15][15];
-    static boolean[] FUV = new boolean[15];
-    static boolean[][] PUM = new boolean[15][15];
-    static boolean[] CMV = new boolean[15];
-    static boolean launch;
+    int NUMPOINTS;
+    Connectors[][] LCM = new Connectors[15][15];
+    boolean[] FUV = new boolean[15];
+    boolean[][] PUM = new boolean[15][15];
+    boolean[] CMV = new boolean[15];
+    boolean launch;
+    
 
-    // compare floating point numbers
-    public static CompType doubleCompare(double A, double B) {
+    //compare floating point numbers
+    public CompType doubleCompare(double A, double B) {
         if (Math.abs(A - B) < 0.000001) {
             return CompType.EQ;
         } else if (A < B) {
@@ -58,31 +59,35 @@ public class Decide {
         LT, EQ, GT
     }
 
-    public static void main(String[] args) {
-        // TODO
+    public void main(String[] args){
+        //TODO
+    }
+     boolean decide(){
+        //TODO
+
+        return false;
+    }
+     boolean[] FUVCreator(){
+        //TODO
+
+        return new boolean[0];
     }
 
-    private static boolean decide() {
-        // TODO
+     boolean[][] PUMCreator(){
+        //TODO
+
+        return new boolean[0][0];
     }
 
-    private static boolean[] FUVCreator() {
-        // TODO
+     boolean[] CMVCreator(){
+        //TODO
+
+        return new boolean[0];
     }
-
-    private static boolean[][] PUMCreator() {
-        // TODO
-    }
-
-    private static boolean[] CMVCreator() {
-        // TODO
-
-    }
-
-    private static boolean CMV0(double length1) {
-        double x1 = x[0];
-        double y1 = y[0];
-        for (int i = 1; i < NUMPOINTS; ++i) {
+     boolean CMV0(double length1){
+        double x1 = x[0]; 
+        double y1 = y[0]; 
+        for(int i = 1; i < NUMPOINTS; ++i) {
             double x2 = x[i];
             double y2 = y[i];
             double square_dist = pow((x1 - x2), 2) + pow((y1 - y2), 2);
@@ -94,27 +99,26 @@ public class Decide {
         }
         return false;
     }
+    
+     boolean CMV1(double radius1){
+        double x1 = x[0]; 
+        double y1 = y[0]; 
+        double x2 = x[1]; 
+        double y2 = y[1]; 
+        double a = distance(x1,y1,x2,y2); 
+        for(int i= 2; i < NUMPOINTS; ++i){
+            double x3 = x[i]; 
+            double y3 = y[i]; 
+            double b = distance(x2,y2,x3,y3); 
+            double c = distance(x3,y3,x1,y1); 
 
-    private static boolean CMV1(double radius1) {
-        double x1 = x[0];
-        double y1 = y[0];
-        double x2 = x[1];
-        double y2 = y[1];
-        double a = distance(x1, y1, x2, y2);
-        for (int i = 2; i < NUMPOINTS; ++i) {
-            double x3 = x[i];
-            double y3 = y[i];
-            double b = distance(x2, y2, x3, y3);
-            double c = distance(x3, y3, x1, y1);
+            double s = (a + b + c) / 2.0 ; //semiperimeter of the triangle
+            double circumradius = (a * b * c) / 
+                        (4 * pow(s * (a + b -s) * (a + c -s) * (b + c -s), 0.5)); //the circumradius
+            CompType result = doubleCompare(circumradius, radius1); 
+            if(result == CompType.GT) return true; //circumradius > radius1
 
-            double s = (a + b + c) / 2.0; // semiperimeter of the triangle
-            double circumradius = (a * b * c) /
-                    (4 * pow(s * (a + b - s) * (a + c - s) * (b + c - s), 0.5)); // the circumradius
-            CompType result = doubleCompare(circumradius, radius1);
-            if (result == CompType.GT)
-                return true; // circumradius > radius1
-
-            // prepare data for next iteration
+            //prepare data for next iteration 
             x1 = x2;
             y1 = y2;
             x2 = x3;
@@ -125,9 +129,9 @@ public class Decide {
         return false;
     }
 
-    private static boolean CMV2(double epsilon) {
-        double x1 = x[0];
-        double y1 = y[0];
+     boolean CMV2(double epsilon){
+        double x1 = x[0]; 
+        double y1 = y[0]; 
 
         double x_vertex = x[1];
         double y_vertex = y[1];
@@ -169,21 +173,20 @@ public class Decide {
         return false;
     }
 
-    private static boolean CMV3(double area1) {
-        double x1 = x[0];
-        double y1 = y[0];
-        double x2 = x[1];
-        double y2 = y[1];
-        for (int i = 2; i < NUMPOINTS; ++i) {
-            double x3 = x[i];
-            double y3 = y[i];
+     boolean CMV3(double area1){
+        double x1 = x[0]; 
+        double y1 = y[0]; 
+        double x2 = x[1]; 
+        double y2 = y[1]; 
+        for(int i= 2; i < NUMPOINTS; ++i){
+            double x3 = x[i]; 
+            double y3 = y[i]; 
 
-            double area = (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0; // area of the triangle
-            CompType result = doubleCompare(area, area1);
-            if (result == CompType.GT)
-                return true; // area > area1
+            double area = (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0 ; //area of the triangle
+            CompType result = doubleCompare(area, area1); 
+            if(result == CompType.GT) return true; //area > area1
 
-            // prepare data for next iteration
+            //prepare data for next iteration 
             x1 = x2;
             y1 = y2;
             x2 = x3;
@@ -195,23 +198,26 @@ public class Decide {
 
     }
 
-    private static boolean CMV4(int qpts, int quads) {
-        // number of points in each quadrant
-        int quad1 = 0;
-        int quad2 = 0;
-        int quad3 = 0;
-        int quad4 = 0;
+     boolean CMV4(int qpts, int quads){
+        //number of points in each quadrant
+        int quad1 = 0; 
+        int quad2 = 0; 
+        int quad3 = 0; 
+        int quad4 = 0; 
 
-        // initialization of number of points in each quadrant
-        for (int i = 0; i < qpts - 1; ++i) {
-            if (x[i] >= 0 && y[i] >= 0) {
-                quad1 += 1;
-            } else if (x[i] < 0 && y[i] >= 0) {
-                quad2 += 1;
-            } else if (x[i] < 0 && y[i] <= 0) {
-                quad3 += 1;
-            } else if (x[i] < 0 && y[i] > 0) {
-                quad4 += 1;
+        //initialization of number of points in each quadrant
+        for(int i = 0; i < qpts -1; ++i){
+            if(x[i] >= 0 && y[i] >= 0){
+                quad1 += 1; 
+            }
+            else if(x[i] < 0 && y[i] >= 0){
+                quad2 += 1; 
+            }
+            else if(x[i] < 0 && y[i] <= 0){
+                quad3 += 1; 
+            }
+            else if(x[i] < 0 && y[i] > 0){
+                quad4 += 1; 
             }
         }
 
@@ -258,22 +264,21 @@ public class Decide {
 
     }
 
-    private static boolean CMV5() {
-        double x1 = x[0];
-
-        for (int i = 1; i < NUMPOINTS; ++i) {
-            double x2 = x[i];
-            if (doubleCompare(x1, x2) == CompType.GT)
-                return true;
-            x1 = x2;
+     boolean CMV5(){
+        double x1 = x[0]; 
+        
+        for(int i = 1; i < NUMPOINTS; ++i){
+            double x2 = x[i]; 
+            if(doubleCompare(x1, x2) == CompType.GT) return true; 
+            x1 = x2; 
         }
         return false;
 
     }
 
-    private static boolean CMV6(double dist, int n_pts) {
-        if (NUMPOINTS < 3)
-            return false;
+
+     boolean CMV6(double dist, int n_pts){
+        if(NUMPOINTS < 3) return false; 
 
         for (int i = 0; i <= NUMPOINTS - n_pts; ++i) {
             double x1 = x[i];
@@ -325,44 +330,85 @@ public class Decide {
         }
         return false;
     }
+  
 
-    private static boolean CMV8() {
-        // TODO
+     boolean CMV8(){
+        //TODO
 
+        return false;
     }
 
-    private static boolean CMV9() {
-        // TODO
+     boolean CMV9(){
+        //TODO
 
+        return false;
     }
 
-    private static boolean CMV10() {
-        // TODO
+    public boolean CMV10(double area1, int epts, int fpts){
+        if(NUMPOINTS < 5) return false;
 
+        double x1;
+        double y1;
+
+        double x2;
+        double y2;
+
+        double x3;
+        double y3;
+
+        for(int i = 0; i < NUMPOINTS - (epts + fpts); i++) {
+            x1 = x[i];
+            y1 = y[i];
+
+            x2 = x[i + epts+1];
+            y2 = y[i + epts+1];
+
+            x3 = x[i + epts + fpts + 2];
+            y3 = y[i + epts + fpts + 2];
+
+            if(doubleCompare(triangleArea(x1, y1, x2, y2, x3, y3), area1) == CompType.GT) return true;
+        }
+
+        return false;
     }
 
-    private static boolean CMV11() {
-        // TODO
 
+    boolean CMV11(){
+        //TODO
+
+        return false;
     }
 
-    private static boolean CMV12() {
-        // TODO
+     boolean CMV12(){
+        //TODO
 
+        return false;
     }
 
-    private static boolean CMV13() {
-        // TODO
+     boolean CMV13(){
+        //TODO
 
+        return false;
     }
 
-    private static boolean CMV14() {
-        // TODO
+     boolean CMV14(){
+        //TODO
 
+        return false;
     }
 
-    private static double distance(double x1, double y1, double x2, double y2) {
-        return pow((pow(x1 - x2, 2) + pow(y1 - y2, 2)), 0.5);
+     double distance(double x1, double y1, double x2, double y2){
+        return pow((pow(x1-x2, 2) + pow(y1-y2, 2)), 0.5); 
+    }
+
+    /**
+     * helper function to calculate area of 3 points using shoelace formula
+     * @return area of triangle
+     */
+    public double triangleArea(double x1, double y1,
+                               double x2, double y2,
+                               double x3, double y3) {
+        return 0.5 * Math.abs((x1*y2 + x2*y3 + x3*y1) - (x2*y1 + x3*y2 + x1*y3));
     }
 
 }
