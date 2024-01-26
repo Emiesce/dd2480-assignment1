@@ -132,9 +132,12 @@ public class Decide{
 
         for(int i = 2; i < NUMPOINTS; ++i){
             double x2 = x[i]; 
-            double y2 = y[i]; 
-
+            double y2 = y[i];
             if((x1 == x_vertex && y1 == y_vertex) || (x2 == x_vertex && y2 == y_vertex)){
+                x1 = x_vertex;
+                y1 = y_vertex;
+                x_vertex = x2;
+                y_vertex = y2;
                 continue; //go on to next iteration since one point coincide with the vertex
             }
 
@@ -147,7 +150,7 @@ public class Decide{
             double a_norm = distance(a_x, a_y, 0, 0); 
             double b_norm = distance(b_x, b_y, 0, 0); 
 
-            double angle = acos(a_dot_b / (a_norm * b_norm)); 
+            double angle = acos(a_dot_b / (a_norm * b_norm));
             angle = (angle + 2 * Math.PI) % (2 * Math.PI); // Ensure the angle is in the range [0, 2π)
 
             if(doubleCompare(angle, PI - epsilon) == CompType.LT || 
