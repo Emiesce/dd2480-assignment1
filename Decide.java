@@ -309,22 +309,21 @@ public class Decide {
         return false;
     }
 
-    private static boolean CMV7() {
+    boolean CMV7(int kpts, double length1) {
         if (NUMPOINTS < 3) {
             return false;
         }
 
-        int KPTS = parameters.KPTS;
 
-        for (int i = 0; i <= NUMPOINTS - KPTS - 1; i++) {
+        for (int i = 0; i <= NUMPOINTS - kpts - 2; i++) {
             double x1 = x[i];
             double y1 = y[i];
-            double x2 = x[i + KPTS];
-            double y2 = y[i + KPTS];
+            double x2 = x[i + kpts + 1];
+            double y2 = y[i + kpts + 1];
 
             double distance = distance(x1, y1, x2, y2);
 
-            if (doubleCompare(distance, parameters.LENGTH1) == CompType.GT) {
+            if (doubleCompare(distance, length1) == CompType.GT) {
                 return true;
             }
         }
