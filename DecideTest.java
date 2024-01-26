@@ -65,8 +65,8 @@ public class DecideTest {
         decide.x[4] = x3;
         decide.y[4] = y3;
 
-        assertTrue("the parameter area is greater than the triangle but returns false", decide.CMV10(1, 1, 1));
-        assertFalse("the parameter area is lesser than the triangle but returns true", decide.CMV10(0.2, 1, 1))
+        assertTrue("the parameter area is lesser than the triangle but returns false", decide.CMV10(0.2, 1, 1));
+        assertFalse("the parameter area is greater than the triangle but returns true", decide.CMV10(1, 1, 1));
     }
 
 }
