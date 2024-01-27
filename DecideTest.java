@@ -243,7 +243,7 @@ public class DecideTest {
         decide.y[5] = y4;
 
         assertThrows(AssertionError.class, () -> decide.CMV4(1, 1)); //tests bad parameters
-        assertThrows(AssertionError.class, () -> decide.CMV4(7, 1)); //tests bad parameters
+        assertThrows(AssertionError.class, () -> decide.CMV4(decide.NUMPOINTS + 1, 1)); //tests bad parameters
         assertThrows(AssertionError.class, () -> decide.CMV4(2, 0)); //tests bad parameters
         assertThrows(AssertionError.class, () -> decide.CMV4(2, 4)); //tests bad parameters
         assertTrue("since the first three points are in 3 different quadrant, it should return true with quads " +
@@ -305,6 +305,10 @@ public class DecideTest {
         decide.y[1] = y2;
         decide.x[2] = x3;
         decide.y[2] = y3;
+
+        assertThrows(AssertionError.class, () -> decide.CMV6(-1, 3)); //tests bad parameters
+        assertThrows(AssertionError.class, () -> decide.CMV6(0, 2)); //tests bad parameters
+        assertThrows(AssertionError.class, () -> decide.CMV6(0, decide.NUMPOINTS + 1)); //tests bad parameters
 
         assertFalse("x2 is at 1 from point, so it should return false with dist = 1", decide.CMV6(1, 3));
         assertFalse("x2 is at 1 from point, so it should return false with dist = 2", decide.CMV6(2, 3));
