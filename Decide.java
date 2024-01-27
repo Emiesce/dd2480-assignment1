@@ -126,6 +126,7 @@ public class Decide{
     }
 
      boolean CMV2(double epsilon){
+        assert (epsilon >= 0 && epsilon < PI);
         double x1 = x[0]; 
         double y1 = y[0]; 
 
