@@ -113,6 +113,7 @@ public class DecideTest {
         decide.x[3] = x4;
         decide.y[3] = y4;
 
+        assertThrows(AssertionError.class, () -> decide.CMV0(-1));
         assertTrue("the length is 5, point 3 & 4 are further away but it returns false", decide.CMV0(5));
         assertFalse("the length is 10, no two consecutive points are that far away but cmv0(10) returns true", decide.CMV0(10));
     }
@@ -142,6 +143,7 @@ public class DecideTest {
         decide.x[3] = x4;
         decide.y[3] = y4;
 
+        assertThrows(AssertionError.class, () -> decide.CMV1(-1)); //tests bad parameters
         assertTrue("the radius param. is 0.5, point 2,3,4 can only be contain on/in a circle of radius minimum 1", decide.CMV1(0.5));
         assertFalse("the radius param. is 10, points 2,3,4 can be contained in such a circle", decide.CMV1(10));
         assertFalse("the radius param. is 1, points 2,3,4 can be contained ON such a circle", decide.CMV1(1));
@@ -172,6 +174,9 @@ public class DecideTest {
         decide.x[3] = x4;
         decide.y[3] = y4;
 
+        assertThrows(AssertionError.class, () -> decide.CMV2(-1)); //tests bad parameters
+        assertThrows(AssertionError.class, () -> decide.CMV2(decide.PI)); //tests bad parameters
+        assertThrows(AssertionError.class, () -> decide.CMV2(decide.PI + 1)); //tests bad parameters
         assertFalse("since two points coincide, it should return false", decide.CMV2(3));
         decide.NUMPOINTS = 4;
         assertTrue("the angle formed by p2, p3, p4 is pi/2 so it should return true with epsilon = 1", decide.CMV2(1));
@@ -202,6 +207,7 @@ public class DecideTest {
         decide.x[3] = x4;
         decide.y[3] = y4;
 
+        assertThrows(AssertionError.class, () -> decide.CMV3(-1)); //tests bad parameters
         assertFalse("since two points coincide, it should return false, the area is 0", decide.CMV3(1));
         decide.NUMPOINTS = 4;
         assertTrue("the area formed by p2, p3, p4 is 50 so it should return true with area1 = 1", decide.CMV3(1));
@@ -236,6 +242,10 @@ public class DecideTest {
         decide.x[5] = x4;
         decide.y[5] = y4;
 
+        assertThrows(AssertionError.class, () -> decide.CMV4(1, 1)); //tests bad parameters
+        assertThrows(AssertionError.class, () -> decide.CMV4(decide.NUMPOINTS + 1, 1)); //tests bad parameters
+        assertThrows(AssertionError.class, () -> decide.CMV4(2, 0)); //tests bad parameters
+        assertThrows(AssertionError.class, () -> decide.CMV4(2, 4)); //tests bad parameters
         assertTrue("since the first three points are in 3 different quadrant, it should return true with quads " +
                 "= 2 and qpts = 3", decide.CMV4(3, 2));
         assertFalse("since no three points can be in 4 different quadrant, CMV4 should return false with quads " +
@@ -295,6 +305,10 @@ public class DecideTest {
         decide.y[1] = y2;
         decide.x[2] = x3;
         decide.y[2] = y3;
+
+        assertThrows(AssertionError.class, () -> decide.CMV6(-1, 3)); //tests bad parameters
+        assertThrows(AssertionError.class, () -> decide.CMV6(0, 2)); //tests bad parameters
+        assertThrows(AssertionError.class, () -> decide.CMV6(0, decide.NUMPOINTS + 1)); //tests bad parameters
 
         assertFalse("x2 is at 1 from point, so it should return false with dist = 1", decide.CMV6(1, 3));
         assertFalse("x2 is at 1 from point, so it should return false with dist = 2", decide.CMV6(2, 3));
