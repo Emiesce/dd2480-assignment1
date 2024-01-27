@@ -85,6 +85,7 @@ public class Decide{
     }
 
     boolean CMV0(double length1){
+        assert length1 >= 0;
         double x1 = x[0]; 
         double y1 = y[0]; 
 
