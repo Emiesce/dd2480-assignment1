@@ -207,6 +207,7 @@ public class DecideTest {
         decide.x[3] = x4;
         decide.y[3] = y4;
 
+        assertThrows(AssertionError.class, () -> decide.CMV3(-1)); //tests bad parameters
         assertFalse("since two points coincide, it should return false, the area is 0", decide.CMV3(1));
         decide.NUMPOINTS = 4;
         assertTrue("the area formed by p2, p3, p4 is 50 so it should return true with area1 = 1", decide.CMV3(1));
