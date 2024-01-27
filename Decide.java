@@ -274,15 +274,15 @@ public class Decide{
             if(x1 == x2 && y1 == y2){ 
                  
                 for(int j = i + 1; j < i + n_pts - 1; ++j){
-                    double distance = distance(x1, y1, x[j], y[j]); 
+                    double distance = distance(x1, y1, x[j], y[j]);
                     if(doubleCompare(distance, dist) == CompType.GT) return true; 
                 }
             }else{
                 double denominator = distance(x1, y1, x2, y2); 
 
                 for(int j = i + 1; j < i + n_pts - 1; ++j){
-                    double nominator = Math.abs((x2 - x1) * (y1 - y[i]) - (x1 - x[i]) * (y2 - y1));
-                    double distance = nominator / denominator; 
+                    double nominator = Math.abs((x2 - x1) * (y1 - y[j]) - (x1 - x[j]) * (y2 - y1));
+                    double distance = nominator / denominator;
                     if(doubleCompare(distance, dist) == CompType.GT) return true; 
                 }
             }
