@@ -197,6 +197,8 @@ public class Decide{
     }
 
      boolean CMV4(int qpts, int quads){
+        assert (2 <= qpts && qpts <= NUMPOINTS);
+        assert (1 <= quads && quads <= 3);
         //number of points in each quadrant
         int quad1 = 0; 
         int quad2 = 0; 
