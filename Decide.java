@@ -132,9 +132,12 @@ public class Decide{
 
         for(int i = 2; i < NUMPOINTS; ++i){
             double x2 = x[i]; 
-            double y2 = y[i]; 
-
+            double y2 = y[i];
             if((x1 == x_vertex && y1 == y_vertex) || (x2 == x_vertex && y2 == y_vertex)){
+                x1 = x_vertex;
+                y1 = y_vertex;
+                x_vertex = x2;
+                y_vertex = y2;
                 continue; //go on to next iteration since one point coincide with the vertex
             }
 
@@ -147,7 +150,7 @@ public class Decide{
             double a_norm = distance(a_x, a_y, 0, 0); 
             double b_norm = distance(b_x, b_y, 0, 0); 
 
-            double angle = acos(a_dot_b / (a_norm * b_norm)); 
+            double angle = acos(a_dot_b / (a_norm * b_norm));
             angle = (angle + 2 * Math.PI) % (2 * Math.PI); // Ensure the angle is in the range [0, 2π)
 
             if(doubleCompare(angle, PI - epsilon) == CompType.LT || 
@@ -202,9 +205,9 @@ public class Decide{
                 quad1 += 1; 
             }else if(x[i] < 0 && y[i] >= 0){
                 quad2 += 1; 
-            }else if(x[i] < 0 && y[i] <= 0){
+            }else if(x[i] <= 0 && y[i] < 0){
                 quad3 += 1; 
-            }else if(x[i] < 0 && y[i] > 0){
+            }else if(x[i] > 0 && y[i] < 0){
                 quad4 += 1; 
             }
         }
@@ -218,33 +221,29 @@ public class Decide{
             else if(x[i] < 0 && y[i] >= 0){
                 quad2 += 1; 
             }
-            else if(x[i] < 0 && y[i] <= 0){
+            else if(x[i] <= 0 && y[i] < 0){
                 quad3 += 1; 
             }
-            else if(x[i] < 0 && y[i] > 0){
+            else if(x[i] > 0 && y[i] < 0){
                 quad4 += 1; 
             }
-
             int unused_quads = 0; 
             if(quad1 == 0) unused_quads +=1; 
             if(quad2 == 0) unused_quads +=1; 
             if(quad3 == 0) unused_quads +=1; 
-            if(quad4 == 0) unused_quads +=1; 
+            if(quad4 == 0) unused_quads +=1;
 
-            if(unused_quads < (3 - quads)) return true; 
+            if(unused_quads < (4 - quads)) return true;
 
             //change the number of points in each quadrant by removing the first point 
             // of the list in our counts
-            if(x[i - (qpts -1)] >= 0 && y[i] >= 0){
+            if(x[i - (qpts -1)] >= 0 && y[i - (qpts -1)] >= 0){
                 quad1 -= 1; 
-            }
-            else if(x[i - (qpts -1)] < 0 && y[i] >= 0){
+            } else if(x[i - (qpts -1)] < 0 && y[i - (qpts -1)] >= 0){
                 quad2 -= 1; 
-            }
-            else if(x[i - (qpts -1)] < 0 && y[i] <= 0){
+            } else if(x[i - (qpts -1)] <= 0 && y[i - (qpts -1)] < 0){
                 quad3 -= 1; 
-            }
-            else if(x[i - (qpts -1)] < 0 && y[i] > 0){
+            } else if(x[i - (qpts -1)] > 0 && y[i - (qpts -1)] < 0){
                 quad4 -= 1; 
             }
         }
@@ -275,15 +274,15 @@ public class Decide{
             if(x1 == x2 && y1 == y2){ 
                  
                 for(int j = i + 1; j < i + n_pts - 1; ++j){
-                    double distance = distance(x1, y1, x[j], y[j]); 
+                    double distance = distance(x1, y1, x[j], y[j]);
                     if(doubleCompare(distance, dist) == CompType.GT) return true; 
                 }
             }else{
                 double denominator = distance(x1, y1, x2, y2); 
 
                 for(int j = i + 1; j < i + n_pts - 1; ++j){
-                    double nominator = Math.abs((x2 - x1) * (y1 - y[i]) - (x1 - x[i]) * (y2 - y1));
-                    double distance = nominator / denominator; 
+                    double nominator = Math.abs((x2 - x1) * (y1 - y[j]) - (x1 - x[j]) * (y2 - y1));
+                    double distance = nominator / denominator;
                     if(doubleCompare(distance, dist) == CompType.GT) return true; 
                 }
             }
