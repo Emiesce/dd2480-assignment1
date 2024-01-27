@@ -245,6 +245,38 @@ public class DecideTest {
     }
 
 
+    @Test
+    public void testCMV5() {
+        double x1 = 0;
+        double y1 = 0;
+
+        double x2 = 1;
+        double y2 = 0;
+
+        double x3 = 1;
+        double y3 = 0;
+
+        double x4 = 0;
+        double y4 = 0;
+
+        decide.NUMPOINTS = 2;
+        decide.x[0] = x1;
+        decide.y[0] = y1;
+        decide.x[1] = x2;
+        decide.y[1] = y2;
+        decide.x[2] = x3;
+        decide.y[2] = y3;
+        decide.x[3] = x4;
+        decide.y[3] = y4;
+
+        assertFalse("since x2 > x1, should be false", decide.CMV5());
+        decide.NUMPOINTS = 3;
+        assertFalse("since x2 > x1 and x3 == x2, should be false", decide.CMV5());
+        decide.NUMPOINTS = 4;
+        assertTrue("since x4 < x3, should be true", decide.CMV5());
+    }
+
+
 
     @Test
     public void testCMV10() {
