@@ -204,8 +204,44 @@ public class DecideTest {
 
         assertFalse("since two points coincide, it should return false, the area is 0", decide.CMV3(1));
         decide.NUMPOINTS = 4;
-        assertTrue("the area formed by p2, p3, p4 is 50 so it should return true with area1 = 1", decide.CMV2(1));
-        assertFalse("the area formed by p2, p3, p4 is 50 so it should return false with area1 = 50 ", decide.CMV2(50));
+        assertTrue("the area formed by p2, p3, p4 is 50 so it should return true with area1 = 1", decide.CMV3(1));
+        assertFalse("the area formed by p2, p3, p4 is 50 so it should return false with area1 = 50 ", decide.CMV3(50));
+    }
+
+    @Test
+    public void testCMV4() {
+        double x1 = 0;
+        double y1 = 0;
+
+        double x2 = -1;
+        double y2 = 0;
+
+        double x3 = 0;
+        double y3 = -1;
+
+        double x4 = 1;
+        double y4 = -1;
+
+        decide.NUMPOINTS = 6;
+        decide.x[0] = x1;
+        decide.y[0] = y1;
+        decide.x[1] = x2;
+        decide.y[1] = y2;
+        decide.x[2] = x3;
+        decide.y[2] = y3;
+        decide.x[3] = x4;
+        decide.y[3] = y4;
+        decide.x[4] = x4;
+        decide.y[4] = y4;
+        decide.x[5] = x4;
+        decide.y[5] = y4;
+
+        assertTrue("since the first three points are in 3 different quadrant, it should return true with quads " +
+                "= 2 and qpts = 3", decide.CMV4(3, 2));
+        assertFalse("since no three points can be in 4 different quadrant, CMV4 should return false with quads " +
+                "= 3 and qpts = 3", decide.CMV4(3, 3));
+        assertTrue("the 4 points are in 4 different quadrant so CMV4 should return true with quads = 3 " +
+                "and qpts = 4", decide.CMV4(4, 3));
     }
 
 
