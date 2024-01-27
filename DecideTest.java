@@ -277,6 +277,44 @@ public class DecideTest {
     }
 
 
+    @Test
+    public void testCMV6() {
+        double x1 = 0;
+        double y1 = 0;
+
+        double x2 = 1;
+        double y2 = 0;
+
+        double x3 = 0;
+        double y3 = 0;
+
+        decide.NUMPOINTS = 3;
+        decide.x[0] = x1;
+        decide.y[0] = y1;
+        decide.x[1] = x2;
+        decide.y[1] = y2;
+        decide.x[2] = x3;
+        decide.y[2] = y3;
+
+        assertFalse("x2 is at 1 from point, so it should return false with dist = 1", decide.CMV6(1, 3));
+        assertFalse("x2 is at 1 from point, so it should return false with dist = 2", decide.CMV6(2, 3));
+        assertTrue("x2 is at 1 from point, so it should return true with dist = 0.5", decide.CMV6(0.5, 3));
+
+        x2 = 100;
+        y2 = 10;
+        x3 = 10;
+        y3 = 0;
+        decide.x[1] = x2;
+        decide.y[1] = y2;
+        decide.x[2] = x3;
+        decide.y[2] = y3;
+
+        assertFalse("x2 is at 10 from line, so it should return false with dist = 10", decide.CMV6(10, 3));
+        assertFalse("x2 is at 10 from line, so it should return false with dist = 11", decide.CMV6(11, 3));
+        assertTrue("x2 is at 10 from line, so it should return true with dist = 9", decide.CMV6(9, 3));
+    }
+
+
 
     @Test
     public void testCMV10() {
