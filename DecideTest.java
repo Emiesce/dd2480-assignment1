@@ -143,6 +143,7 @@ public class DecideTest {
         decide.x[3] = x4;
         decide.y[3] = y4;
 
+        assertThrows(AssertionError.class, () -> decide.CMV1(-1)); //tests bad parameters 
         assertTrue("the radius param. is 0.5, point 2,3,4 can only be contain on/in a circle of radius minimum 1", decide.CMV1(0.5));
         assertFalse("the radius param. is 10, points 2,3,4 can be contained in such a circle", decide.CMV1(10));
         assertFalse("the radius param. is 1, points 2,3,4 can be contained ON such a circle", decide.CMV1(1));
