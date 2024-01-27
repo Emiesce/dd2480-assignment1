@@ -267,26 +267,28 @@ public class Decide{
         return false;     
     }
 
-    boolean CMV6(double dist, int n_pts){
+    boolean CMV6(double dist, int npts){
+        assert (3 <= npts && npts <= NUMPOINTS);
+        assert (0 <= dist);
         if(NUMPOINTS < 3) return false; 
 
-        for(int i = 0; i <= NUMPOINTS - n_pts; ++i){
+        for(int i = 0; i <= NUMPOINTS - npts; ++i){
             double x1 = x[i]; 
             double y1 = y[i];
-            double x2 = x[i + n_pts - 1]; 
-            double y2 = y[i + n_pts - 1]; 
+            double x2 = x[i + npts - 1];
+            double y2 = y[i + npts - 1];
             
             //same point
             if(x1 == x2 && y1 == y2){ 
                  
-                for(int j = i + 1; j < i + n_pts - 1; ++j){
+                for(int j = i + 1; j < i + npts - 1; ++j){
                     double distance = distance(x1, y1, x[j], y[j]);
                     if(doubleCompare(distance, dist) == CompType.GT) return true; 
                 }
             }else{
                 double denominator = distance(x1, y1, x2, y2); 
 
-                for(int j = i + 1; j < i + n_pts - 1; ++j){
+                for(int j = i + 1; j < i + npts - 1; ++j){
                     double nominator = Math.abs((x2 - x1) * (y1 - y[j]) - (x1 - x[j]) * (y2 - y1));
                     double distance = nominator / denominator;
                     if(doubleCompare(distance, dist) == CompType.GT) return true; 
