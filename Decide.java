@@ -172,6 +172,7 @@ public class Decide{
     }
 
     boolean CMV3(double area1){
+        assert area1 >= 0;
         double x1 = x[0]; 
         double y1 = y[0]; 
         double x2 = x[1]; 
