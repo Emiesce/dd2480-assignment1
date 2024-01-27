@@ -113,6 +113,7 @@ public class DecideTest {
         decide.x[3] = x4;
         decide.y[3] = y4;
 
+        assertThrows(AssertionError.class, () -> decide.CMV0(-1));
         assertTrue("the length is 5, point 3 & 4 are further away but it returns false", decide.CMV0(5));
         assertFalse("the length is 10, no two consecutive points are that far away but cmv0(10) returns true", decide.CMV0(10));
     }
