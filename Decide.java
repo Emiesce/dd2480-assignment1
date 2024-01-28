@@ -86,6 +86,7 @@ public class Decide {
     }
 
     boolean CMV0(double length1){
+        assert length1 >= 0;
         double x1 = x[0]; 
         double y1 = y[0]; 
 
@@ -103,6 +104,7 @@ public class Decide {
     }
     
      boolean CMV1(double radius1){
+        assert radius1 >= 0;
         double x1 = x[0]; 
         double y1 = y[0]; 
         double x2 = x[1]; 
@@ -126,18 +128,22 @@ public class Decide {
     }
 
      boolean CMV2(double epsilon){
+        assert (epsilon >= 0 && epsilon < PI);
         double x1 = x[0]; 
         double y1 = y[0]; 
 
         double x_vertex = x[1];
         double y_vertex = y[1];
 
-        for (int i = 2; i < NUMPOINTS; ++i) {
-            double x2 = x[i];
+        for(int i = 2; i < NUMPOINTS; ++i){
+            double x2 = x[i]; 
             double y2 = y[i];
-
-            if ((x1 == x_vertex && y1 == y_vertex) || (x2 == x_vertex && y2 == y_vertex)) {
-                continue; // go on to next iteration since one point coincide with the vertex
+            if((x1 == x_vertex && y1 == y_vertex) || (x2 == x_vertex && y2 == y_vertex)){
+                x1 = x_vertex;
+                y1 = y_vertex;
+                x_vertex = x2;
+                y_vertex = y2;
+                continue; //go on to next iteration since one point coincide with the vertex
             }
 
             double a_x = x_vertex - x1;
@@ -168,6 +174,7 @@ public class Decide {
     }
 
     boolean CMV3(double area1){
+        assert area1 >= 0;
         double x1 = x[0]; 
         double y1 = y[0]; 
         double x2 = x[1]; 
@@ -192,6 +199,8 @@ public class Decide {
     }
 
      boolean CMV4(int qpts, int quads){
+        assert (2 <= qpts && qpts <= NUMPOINTS);
+        assert (1 <= quads && quads <= 3);
         //number of points in each quadrant
         int quad1 = 0; 
         int quad2 = 0; 
@@ -204,49 +213,46 @@ public class Decide {
                 quad1 += 1; 
             }else if(x[i] < 0 && y[i] >= 0){
                 quad2 += 1; 
-            }else if(x[i] < 0 && y[i] <= 0){
+            }else if(x[i] <= 0 && y[i] < 0){
                 quad3 += 1; 
-            }else if(x[i] < 0 && y[i] > 0){
+            }else if(x[i] > 0 && y[i] < 0){
                 quad4 += 1; 
             }
         }
 
-        for (int i = qpts - 1; i < NUMPOINTS; ++i) {
-            // change the number of points in each quadrant by taking into account the
-            // new point of the list
-            if (x[i] >= 0 && y[i] >= 0) {
-                quad1 += 1;
-            } else if (x[i] < 0 && y[i] >= 0) {
-                quad2 += 1;
-            } else if (x[i] < 0 && y[i] <= 0) {
-                quad3 += 1;
-            } else if (x[i] < 0 && y[i] > 0) {
-                quad4 += 1;
+        for(int i = qpts - 1; i < NUMPOINTS; ++i){
+            //change the number of points in each quadrant by taking into account the
+            //new point of the list 
+            if (x[i] >= 0 && y[i] >= 0){
+                quad1 += 1; 
             }
+            else if(x[i] < 0 && y[i] >= 0){
+                quad2 += 1; 
+            }
+            else if(x[i] <= 0 && y[i] < 0){
+                quad3 += 1; 
+            }
+            else if(x[i] > 0 && y[i] < 0){
+                quad4 += 1; 
+            }
+            int unused_quads = 0; 
+            if(quad1 == 0) unused_quads +=1; 
+            if(quad2 == 0) unused_quads +=1; 
+            if(quad3 == 0) unused_quads +=1; 
+            if(quad4 == 0) unused_quads +=1;
 
-            int unused_quads = 0;
-            if (quad1 == 0)
-                unused_quads += 1;
-            if (quad2 == 0)
-                unused_quads += 1;
-            if (quad3 == 0)
-                unused_quads += 1;
-            if (quad4 == 0)
-                unused_quads += 1;
-
-            if (unused_quads < (3 - quads))
-                return true;
+            if(unused_quads < (4 - quads)) return true;
 
             // change the number of points in each quadrant by removing the first point
             // of the list in our counts
-            if (x[i - (qpts - 1)] >= 0 && y[i] >= 0) {
-                quad1 -= 1;
-            } else if (x[i - (qpts - 1)] < 0 && y[i] >= 0) {
-                quad2 -= 1;
-            } else if (x[i - (qpts - 1)] < 0 && y[i] <= 0) {
-                quad3 -= 1;
-            } else if (x[i - (qpts - 1)] < 0 && y[i] > 0) {
-                quad4 -= 1;
+            if(x[i - (qpts -1)] >= 0 && y[i - (qpts -1)] >= 0){
+                quad1 -= 1; 
+            } else if(x[i - (qpts -1)] < 0 && y[i - (qpts -1)] >= 0){
+                quad2 -= 1; 
+            } else if(x[i - (qpts -1)] <= 0 && y[i - (qpts -1)] < 0){
+                quad3 -= 1; 
+            } else if(x[i - (qpts -1)] > 0 && y[i - (qpts -1)] < 0){
+                quad4 -= 1; 
             }
         }
         return false;     
@@ -263,31 +269,31 @@ public class Decide {
         return false;     
     }
 
-    boolean CMV6(double dist, int n_pts){
+    boolean CMV6(double dist, int npts){
+        assert (3 <= npts && npts <= NUMPOINTS);
+        assert (0 <= dist);
         if(NUMPOINTS < 3) return false; 
 
-        for (int i = 0; i <= NUMPOINTS - n_pts; ++i) {
-            double x1 = x[i];
+        for(int i = 0; i <= NUMPOINTS - npts; ++i){
+            double x1 = x[i]; 
             double y1 = y[i];
-            double x2 = x[i + n_pts - 1];
-            double y2 = y[i + n_pts - 1];
-
-            // same point
-            if (x1 == x2 && y1 == y2) {
-
-                for (int j = i + 1; j < i + n_pts - 1; ++j) {
+            double x2 = x[i + npts - 1];
+            double y2 = y[i + npts - 1];
+            
+            //same point
+            if(x1 == x2 && y1 == y2){ 
+                 
+                for(int j = i + 1; j < i + npts - 1; ++j){
                     double distance = distance(x1, y1, x[j], y[j]);
-                    if (doubleCompare(distance, dist) == CompType.GT)
-                        return true;
+                    if(doubleCompare(distance, dist) == CompType.GT) return true; 
                 }
             } else {
                 double denominator = distance(x1, y1, x2, y2);
 
-                for (int j = i + 1; j < i + n_pts - 1; ++j) {
-                    double nominator = Math.abs((x2 - x1) * (y1 - y[i]) - (x1 - x[i]) * (y2 - y1));
+                for(int j = i + 1; j < i + npts - 1; ++j){
+                    double nominator = Math.abs((x2 - x1) * (y1 - y[j]) - (x1 - x[j]) * (y2 - y1));
                     double distance = nominator / denominator;
-                    if (doubleCompare(distance, dist) == CompType.GT)
-                        return true;
+                    if(doubleCompare(distance, dist) == CompType.GT) return true; 
                 }
             }
         }
