@@ -301,7 +301,7 @@ public class Decide {
     }
 
     boolean CMV7(int kpts, double length1) {
-        if (NUMPOINTS < 3) {
+        if (NUMPOINTS < 3 || kpts < 1 || kpts > NUMPOINTS - 2) {
             return false;
         }
 
@@ -320,6 +320,7 @@ public class Decide {
         }
         return false;
     }
+  
   
 
      boolean CMV8(){
