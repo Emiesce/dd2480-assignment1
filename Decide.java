@@ -317,6 +317,8 @@ public class Decide{
     }
 
     public boolean CMV10(double area1, int epts, int fpts){
+        assert (1 <= epts && 1 <= fpts);
+        assert (epts + fpts <= NUMPOINTS-3);
         if(NUMPOINTS < 5) return false;
 
         double x1;

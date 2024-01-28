@@ -332,6 +332,7 @@ public class DecideTest {
 
     @Test
     public void testCMV10() {
+        //These coordinates form a triangle with an area of 0.5
         double x1 = 0;
         double y1 = 0;
 
@@ -349,7 +350,13 @@ public class DecideTest {
         decide.x[4] = x3;
         decide.y[4] = y3;
 
+        assertThrows(AssertionError.class, () -> decide.CMV10(0, 0, 1)); //tests bad parameters
+        assertThrows(AssertionError.class, () -> decide.CMV10(0, 1, 0)); //tests bad parameters
+
+        //0.2 < 0.5, expected return is true
         assertTrue("the parameter area is lesser than the triangle but returns false", decide.CMV10(0.2, 1, 1));
+
+        //1 !< 0.5, expected return is false
         assertFalse("the parameter area is greater than the triangle but returns true", decide.CMV10(1, 1, 1));
     }
 
