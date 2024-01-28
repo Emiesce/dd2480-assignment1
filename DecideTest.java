@@ -372,7 +372,7 @@ public class DecideTest {
         assertThrows(AssertionError.class, () -> decide.CMV12(-1, 0, 1)); //tests bad parameters
 
         assertTrue("Should return true since there is a distance greater than length1 and lesser than length2", decide.CMV12(4, 6, 1));
-
+        assertFalse("There exists no distance lesser than 4 but still returns true", decide.CMV12(4, 4, 1));
     }
 
 }
