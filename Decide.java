@@ -379,10 +379,10 @@ public class Decide{
             dist = distance(x1, y1, x2, y2);
 
             if(!length1Condition) {
-                if(dist > length1) length1Condition = true;
+                if(doubleCompare(dist, length1) == CompType.GT) length1Condition = true;
             }
             if(!length2Condition) {
-                if(dist < length2) length2Condition = true;
+                if(doubleCompare(dist, length2) == CompType.LT) length2Condition = true;
             }
 
             if(length1Condition && length2Condition) return true;
