@@ -354,8 +354,39 @@ public class Decide{
         return false;
     }
 
-     boolean CMV12(){
-        //TODO
+     boolean CMV12(double length1, double length2, int kpts){
+        assert (0 <= length1 && 0 <= length2);
+        if(NUMPOINTS < 3) return false;
+
+        double x1;
+        double y1;
+
+        double x2;
+        double y2;
+
+        double dist;
+
+        boolean length1Condition = false;
+        boolean length2Condition = false;
+
+        for(int i = 0; i < NUMPOINTS - (kpts + 1); i++) {
+            x1 = x[i];
+            y1 = y[i];
+
+            x2 = x[i + kpts + 1];
+            y2 = y[i + kpts + 1];
+
+            dist = distance(x1, y1, x2, y2);
+
+            if(!length1Condition) {
+                if(dist > length1) length1Condition = true;
+            }
+            if(!length2Condition) {
+                if(dist < length2) length2Condition = true;
+            }
+
+            if(length1Condition && length2Condition) return true;
+        }
 
         return false;
     }

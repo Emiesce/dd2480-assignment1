@@ -360,4 +360,19 @@ public class DecideTest {
         assertFalse("the parameter area is greater than the triangle but returns true", decide.CMV10(1, 1, 1));
     }
 
+    @Test
+    public void testCMV12() {
+        //These points have a distance of 5 between each other
+        decide.NUMPOINTS = 3;
+        decide.x[0] = 0;
+        decide.y[0] = 0;
+        decide.x[2] = 0;
+        decide.y[2] = 5;
+
+        assertThrows(AssertionError.class, () -> decide.CMV12(-1, 0, 1)); //tests bad parameters
+
+        assertTrue("Should return true since there is a distance greater than length1 and lesser than length2", decide.CMV12(4, 6, 1));
+
+    }
+
 }
