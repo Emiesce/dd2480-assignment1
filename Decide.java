@@ -304,8 +304,30 @@ public class Decide{
         return false;
     }
 
-     boolean CMV8(){
-        //TODO
+     boolean CMV8(double radius1, int apts, int bpts){
+        assert(1 <= apts && 1 <= bpts);
+        assert(apts + bpts <= NUMPOINTS-3);
+        if(NUMPOINTS < 5) return false;
+
+        double x1;
+        double y1;
+        double x2;
+        double y2;
+        double x3;
+        double y3;
+
+        for(int i = 0; i < NUMPOINTS - (apts + bpts + 2); i++) {
+             x1 = x[i];
+             y1 = y[i];
+             x2 = x[i + apts + 1];
+             y2 = y[i + apts + 1];
+             x3 = x[i + apts + bpts + 2];
+             y3 = y[i + apts + bpts + 2];
+
+             double smallestRadius = smallestRadius(x1, y1, x2, y2, x3, y3);
+
+             if(doubleCompare(smallestRadius, radius1) != CompType.LT) return true;
+         }
 
         return false;
     }
