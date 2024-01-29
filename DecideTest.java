@@ -390,6 +390,23 @@ public class DecideTest {
     }
 
     @Test
+    public void testCMV8() {
+        assertThrows(AssertionError.class, () -> decide.CMV8(1, 0, 0)); //tests bad parameters
+
+        decide.NUMPOINTS = 5;
+        //These points should be contained within a circle with radius 1
+        decide.x[0] = 0;
+        decide.y[0] = 0;
+        decide.x[2] = 0;
+        decide.y[2] = 1;
+        decide.x[4] = 0;
+        decide.y[4] = -1;
+
+        assertTrue("parameter radius is lesser than smallest circle and should return true but is not", decide.CMV8(0.9, 1, 1));
+        assertFalse("parameter radius is greater than smallest circle and should return false but is not", decide.CMV8(1.1, 1, 1));
+    }
+  
+    @Test
     public void testCMV14() {
         decide.NUMPOINTS = 5;
         //forms a triangle with area 0.5
