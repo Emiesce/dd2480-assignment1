@@ -390,6 +390,21 @@ public class DecideTest {
     }
 
     @Test
+    public void testCMV14() {
+        decide.NUMPOINTS = 5;
+        //forms a triangle with area 0.5
+        decide.x[0] = 0;
+        decide.y[0] = 0;
+        decide.x[2] = 1;
+        decide.y[2] = 1;
+        decide.x[4] = 0;
+        decide.y[4] = 1;
+
+        assertTrue("there are points with triangle areas between 0.4 and 0.6 but it returns false", decide.CMV14(0.4, 0.6, 1, 1));
+        assertFalse("there are no points with triangle area below 0.4 but it returns true", decide.CMV14(0.4, 0.4, 1, 1));
+    }
+    
+    @Test
     public void testCMV12() {
         //These points have a distance of 5 between each other
         decide.NUMPOINTS = 3;
