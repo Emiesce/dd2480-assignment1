@@ -390,6 +390,36 @@ public class DecideTest {
     }
 
     @Test
+    public void testCMV11() {
+        double x1 = 2;
+        double y1 = 0;
+
+        double x2 = 1;
+        double y2 = 0;
+
+        double x3 = 1;
+        double y3 = 0;
+
+        double x4 = 3;
+        double y4 = 0;
+
+        decide.NUMPOINTS = 4;
+        decide.x[0] = x1;
+        decide.y[0] = y1;
+        decide.x[1] = x2;
+        decide.y[1] = y2;
+        decide.x[2] = x3;
+        decide.y[2] = y3;
+        decide.x[3] = x4;
+        decide.y[3] = y4;
+
+        assertThrows(AssertionError.class, () -> decide.CMV11(10)); //tests bad parameters (GPTS > NUMPOINTS - 2)
+        assertThrows(AssertionError.class, () -> decide.CMV11(0)); //tests bad parameters (GPTS < 1)
+        assertTrue("Returned false even though X[2] - X[0] < 0", decide.CMV11(1));
+        assertFalse("Returned true even though X[j] - X[i] < 0 is not possible with gpts = 2", decide.CMV11(2));
+    }
+
+    @Test
     public void testCMV12() {
         //These points have a distance of 5 between each other
         decide.NUMPOINTS = 3;
