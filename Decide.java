@@ -1,8 +1,9 @@
 import static java.lang.Math.*;
 
-public class Decide{
+public class Decide {
 
     public final double PI = 3.1415926535;
+
 
     public class Parameters{
         double LENGTH1;    // Length in LICs 0, 7, 12
@@ -24,11 +25,12 @@ public class Decide{
         double LENGTH2;    // Maximum length in LIC 12
         double RADIUS2;    // Maximum radius in LIC 13
         double AREA2;      // Maximum area in LIC 14
-
     }
 
     // Enum for CONNECTORS
-    public enum Connectors { NOTUSED, ORR, ANDD }
+    public enum Connectors {
+        NOTUSED, ORR, ANDD
+    }
 
     Parameters parameters = new Parameters();
     double[] x = new double[100];
@@ -53,10 +55,9 @@ public class Decide{
         }
     }
 
-    public enum CompType{LT, EQ, GT} 
-    
-
-
+    public enum CompType {
+        LT, EQ, GT
+    }
 
     public void main(String[] args){
         //TODO
@@ -92,9 +93,10 @@ public class Decide{
         for(int i = 1; i < NUMPOINTS; ++i) {
             double x2 = x[i];
             double y2 = y[i];
-            double square_dist = pow((x1-x2),2) + pow((y1-y2),2);
+            double square_dist = pow((x1 - x2), 2) + pow((y1 - y2), 2);
             CompType result = doubleCompare(square_dist, pow(length1, 2));
-            if(result == CompType.GT) return true;
+            if (result == CompType.GT)
+                return true;
             x1 = x2;
             y1 = y2;
         }
@@ -130,8 +132,8 @@ public class Decide{
         double x1 = x[0]; 
         double y1 = y[0]; 
 
-        double x_vertex = x[1]; 
-        double y_vertex = y[1]; 
+        double x_vertex = x[1];
+        double y_vertex = y[1];
 
         for(int i = 2; i < NUMPOINTS; ++i){
             double x2 = x[i]; 
@@ -144,28 +146,28 @@ public class Decide{
                 continue; //go on to next iteration since one point coincide with the vertex
             }
 
-            double a_x = x_vertex - x1; 
-            double a_y = y_vertex - y1; 
-            double b_x = x_vertex - x2; 
+            double a_x = x_vertex - x1;
+            double a_y = y_vertex - y1;
+            double b_x = x_vertex - x2;
             double b_y = y_vertex - y2;
 
-            double a_dot_b = a_x * b_x + a_y * b_y; 
-            double a_norm = distance(a_x, a_y, 0, 0); 
-            double b_norm = distance(b_x, b_y, 0, 0); 
+            double a_dot_b = a_x * b_x + a_y * b_y;
+            double a_norm = distance(a_x, a_y, 0, 0);
+            double b_norm = distance(b_x, b_y, 0, 0);
 
             double angle = acos(a_dot_b / (a_norm * b_norm));
             angle = (angle + 2 * Math.PI) % (2 * Math.PI); // Ensure the angle is in the range [0, 2π)
 
-            if(doubleCompare(angle, PI - epsilon) == CompType.LT || 
-                doubleCompare(angle, PI + epsilon) == CompType.GT){
-                    return true; 
-                }
+            if (doubleCompare(angle, PI - epsilon) == CompType.LT ||
+                    doubleCompare(angle, PI + epsilon) == CompType.GT) {
+                return true;
+            }
 
-            //prepare data for next iteration 
-            x1 = x_vertex; 
-            y1 = y_vertex; 
-            x_vertex = x2; 
-            y_vertex = y2; 
+            // prepare data for next iteration
+            x1 = x_vertex;
+            y1 = y_vertex;
+            x_vertex = x2;
+            y_vertex = y2;
         }
         //no three consecutive points such that angle < (PI − EPSILON) or angle > (PI + EPSILON)
         return false;         
@@ -241,7 +243,7 @@ public class Decide{
 
             if(unused_quads < (4 - quads)) return true;
 
-            //change the number of points in each quadrant by removing the first point 
+            // change the number of points in each quadrant by removing the first point
             // of the list in our counts
             if(x[i - (qpts -1)] >= 0 && y[i - (qpts -1)] >= 0){
                 quad1 -= 1; 
@@ -285,8 +287,8 @@ public class Decide{
                     double distance = distance(x1, y1, x[j], y[j]);
                     if(doubleCompare(distance, dist) == CompType.GT) return true; 
                 }
-            }else{
-                double denominator = distance(x1, y1, x2, y2); 
+            } else {
+                double denominator = distance(x1, y1, x2, y2);
 
                 for(int j = i + 1; j < i + npts - 1; ++j){
                     double nominator = Math.abs((x2 - x1) * (y1 - y[j]) - (x1 - x[j]) * (y2 - y1));
@@ -295,14 +297,31 @@ public class Decide{
                 }
             }
         }
-        return false;      
-    }
-
-     boolean CMV7(){
-        //TODO
-
         return false;
     }
+
+    boolean CMV7(int kpts, double length1) {
+        if (NUMPOINTS < 3 || kpts < 1 || kpts > NUMPOINTS - 2) {
+            return false;
+        }
+
+
+        for (int i = 0; i <= NUMPOINTS - kpts - 2; i++) {
+            double x1 = x[i];
+            double y1 = y[i];
+            double x2 = x[i + kpts + 1];
+            double y2 = y[i + kpts + 1];
+
+            double distance = distance(x1, y1, x2, y2);
+
+            if (doubleCompare(distance, length1) == CompType.GT) {
+                return true;
+            }
+        }
+        return false;
+    }
+  
+  
 
      boolean CMV8(double radius1, int apts, int bpts){
         assert(1 <= apts && 1 <= bpts);
@@ -339,6 +358,8 @@ public class Decide{
     }
 
     public boolean CMV10(double area1, int epts, int fpts){
+        assert (1 <= epts && 1 <= fpts);
+        assert (epts + fpts <= NUMPOINTS-3);
         if(NUMPOINTS < 5) return false;
 
         double x1;
@@ -374,8 +395,39 @@ public class Decide{
         return false;
     }
 
-     boolean CMV12(){
-        //TODO
+     boolean CMV12(double length1, double length2, int kpts){
+        assert (0 <= length1 && 0 <= length2);
+        if(NUMPOINTS < 3) return false;
+
+        double x1;
+        double y1;
+
+        double x2;
+        double y2;
+
+        double dist;
+
+        boolean length1Condition = false;
+        boolean length2Condition = false;
+
+        for(int i = 0; i < NUMPOINTS - (kpts + 1); i++) {
+            x1 = x[i];
+            y1 = y[i];
+
+            x2 = x[i + kpts + 1];
+            y2 = y[i + kpts + 1];
+
+            dist = distance(x1, y1, x2, y2);
+
+            if(!length1Condition) {
+                if(doubleCompare(dist, length1) == CompType.GT) length1Condition = true;
+            }
+            if(!length2Condition) {
+                if(doubleCompare(dist, length2) == CompType.LT) length2Condition = true;
+            }
+
+            if(length1Condition && length2Condition) return true;
+        }
 
         return false;
     }
@@ -386,8 +438,42 @@ public class Decide{
         return false;
     }
 
-     boolean CMV14(){
-        //TODO
+     boolean CMV14(double area1, double area2, int epts, int fpts){
+        if(NUMPOINTS < 5) return false;
+
+        double x1;
+        double y1;
+
+        double x2;
+        double y2;
+
+        double x3;
+        double y3;
+
+        boolean area1Condition = false;
+        boolean area2Condition = false;
+
+        for(int i = 0; i < NUMPOINTS - (epts + fpts + 2); i++) {
+            x1 = x[i];
+            y1 = y[i];
+
+            x2 = x[i + epts + 1];
+            y2 = y[i + epts + 1];
+
+            x3 = x[i + epts + fpts + 2];
+            y3 = y[i + epts + fpts + 2];
+
+            double triangleArea = triangleArea(x1, y1, x2, y2, x3, y3);
+
+            if(!area1Condition) {
+                if(doubleCompare(triangleArea, area1) == CompType.GT) area1Condition = true;
+            }
+            if(!area2Condition) {
+                if(doubleCompare(triangleArea, area2) == CompType.LT) area2Condition = true;
+            }
+
+            if(area1Condition && area2Condition) return true;
+        }
 
         return false;
     }
@@ -461,4 +547,3 @@ public class Decide{
     }
     
 }
-
