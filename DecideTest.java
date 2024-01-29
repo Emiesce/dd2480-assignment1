@@ -328,10 +328,40 @@ public class DecideTest {
         assertTrue("x2 is at 10 from line, so it should return true with dist = 9", decide.CMV6(9, 3));
     }
 
+    @Test
+    public void testCMV7() {
+        double x1 = 0;
+        double y1 = 0;
+
+        double x2 = 1;
+        double y2 = 0;
+
+        double x3 = 2;
+        double y3 = 0;
+
+        double x4 = 3;
+        double y4 = 0;
+
+        decide.NUMPOINTS = 4;
+        decide.x[0] = x1;
+        decide.y[0] = y1;
+        decide.x[1] = x2;
+        decide.y[1] = y2;
+        decide.x[2] = x3;
+        decide.y[2] = y3;
+        decide.x[3] = x4;
+        decide.y[3] = y4;
+
+        assertTrue("Distance is 3 which is more than 1, but CMV7 returns false", decide.CMV7(2, 1));
+        assertFalse("kpts is larger than NUMPOINTS - 2, but CMV7 return true", decide.CMV7(3, 1));
+        assertFalse("Distance is 3 which is less than 4, but CMV7 returns true", decide.CMV7(2, 4));
+    }
+
 
 
     @Test
     public void testCMV10() {
+        //These coordinates form a triangle with an area of 0.5
         double x1 = 0;
         double y1 = 0;
 
@@ -349,7 +379,13 @@ public class DecideTest {
         decide.x[4] = x3;
         decide.y[4] = y3;
 
+        assertThrows(AssertionError.class, () -> decide.CMV10(0, 0, 1)); //tests bad parameters
+        assertThrows(AssertionError.class, () -> decide.CMV10(0, 1, 0)); //tests bad parameters
+
+        //0.2 < 0.5, expected return is true
         assertTrue("the parameter area is lesser than the triangle but returns false", decide.CMV10(0.2, 1, 1));
+
+        //1 !< 0.5, expected return is false
         assertFalse("the parameter area is greater than the triangle but returns true", decide.CMV10(1, 1, 1));
     }
 
@@ -366,6 +402,21 @@ public class DecideTest {
 
         assertTrue("there are points with triangle areas between 0.4 and 0.6 but it returns false", decide.CMV14(0.4, 0.6, 1, 1));
         assertFalse("there are no points with triangle area below 0.4 but it returns true", decide.CMV14(0.4, 0.4, 1, 1));
+    }
+    
+    @Test
+    public void testCMV12() {
+        //These points have a distance of 5 between each other
+        decide.NUMPOINTS = 3;
+        decide.x[0] = 0;
+        decide.y[0] = 0;
+        decide.x[2] = 0;
+        decide.y[2] = 5;
+
+        assertThrows(AssertionError.class, () -> decide.CMV12(-1, 0, 1)); //tests bad parameters
+
+        assertTrue("Should return true since there is a distance greater than length1 and lesser than length2", decide.CMV12(4, 6, 1));
+        assertFalse("There exists no distance lesser than 4 but still returns true", decide.CMV12(4, 4, 1));
     }
 
 }
