@@ -329,9 +329,30 @@ public class Decide {
         return false;
     }
 
-     boolean CMV9(){
-        //TODO
-
+    public boolean CMV9(int cpts, int dpts, double epsilon) {
+        if (NUMPOINTS < 5) {
+            return false;
+        }
+        assert(cpts + dpts <= NUMPOINTS - 3);
+        assert(cpts >= 1);
+        assert(dpts >= 1);
+    
+        for (int i = 0; i < NUMPOINTS - (cpts + dpts + 2); i++) {
+            double x1 = x[i];
+            double y1 = y[i];
+    
+            double x2 = x[i + cpts + 1];
+            double y2 = y[i + cpts + 1];
+    
+            double x3 = x[i + cpts + dpts + 2];
+            double y3 = y[i + cpts + dpts + 2];
+    
+            if (doubleCompare(angleBetweenPoints(x1, y1, x2, y2, x3, y3), PI - epsilon) == CompType.LT ||
+                doubleCompare(angleBetweenPoints(x1, y1, x2, y2, x3, y3), PI + epsilon) == CompType.GT) {
+                return true;
+            }
+        }
+    
         return false;
     }
 
@@ -455,6 +476,23 @@ public class Decide {
         double circumradius = (a * b * c) /
                 (4 * pow(s * (a + b - s) * (a + c - s) * (b + c - s), 0.5));
         return circumradius;
+    }
+
+    // Angle between three points
+    private double angleBetweenPoints(double x1, double y1, double x2, double y2, double x3, double y3) {
+        double a_x = x2 - x1;
+        double a_y = y2 - y1;
+        double b_x = x3 - x2;
+        double b_y = y3 - y2;
+
+        double a_dot_b = a_x * b_x + a_y * b_y;
+        double a_norm = distance(a_x, a_y, 0, 0);
+        double b_norm = distance(b_x, b_y, 0, 0);
+
+        double angle = acos(a_dot_b / (a_norm * b_norm));
+        angle = (angle + 2 * Math.PI) % (2 * Math.PI); 
+
+        return angle;
     }
     
 }
