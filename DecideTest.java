@@ -328,6 +328,35 @@ public class DecideTest {
         assertTrue("x2 is at 10 from line, so it should return true with dist = 9", decide.CMV6(9, 3));
     }
 
+    @Test
+    public void testCMV7() {
+        double x1 = 0;
+        double y1 = 0;
+
+        double x2 = 1;
+        double y2 = 0;
+
+        double x3 = 2;
+        double y3 = 0;
+
+        double x4 = 3;
+        double y4 = 0;
+
+        decide.NUMPOINTS = 4;
+        decide.x[0] = x1;
+        decide.y[0] = y1;
+        decide.x[1] = x2;
+        decide.y[1] = y2;
+        decide.x[2] = x3;
+        decide.y[2] = y3;
+        decide.x[3] = x4;
+        decide.y[3] = y4;
+
+        assertTrue("Distance is 3 which is more than 1, but CMV7 returns false", decide.CMV7(2, 1));
+        assertFalse("kpts is larger than NUMPOINTS - 2, but CMV7 return true", decide.CMV7(3, 1));
+        assertFalse("Distance is 3 which is less than 4, but CMV7 returns true", decide.CMV7(2, 4));
+    }
+
 
 
     @Test
