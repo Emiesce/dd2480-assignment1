@@ -389,9 +389,21 @@ public class Decide {
     }
 
 
-    boolean CMV11(){
-        //TODO
-
+    public boolean CMV11(int gpts) {
+        if (NUMPOINTS < 3) {
+            return false;
+        }
+        assert(gpts >= 1);
+        assert(gpts <= NUMPOINTS - 2);
+    
+        for (int i = 0; i <= NUMPOINTS - gpts - 2; i++) {
+            int j = i + gpts + 1;
+    
+            if (doubleCompare(x[j] - x[i], 0) == CompType.LT) {
+                return true;
+            }
+        }
+    
         return false;
     }
 
