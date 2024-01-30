@@ -73,7 +73,7 @@ public class Decide {
         return new boolean[0];
     }
 
-     boolean[][] PUMCreator(){
+     void PUMCreator(){
         //TODO
         for(int i = 0; i < 15; ++i){
             for(int j = 0; j < 15; ++j){
@@ -88,7 +88,7 @@ public class Decide {
                 }
             }
         }
-        return new boolean[0][0];
+        
     }
 
      boolean[] CMVCreator(){
