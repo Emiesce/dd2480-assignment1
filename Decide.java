@@ -479,18 +479,18 @@ public class Decide {
     }
 
     // Angle between three points
-    private double angleBetweenPoints(double x1, double y1, double x2, double y2, double x3, double y3) {
-        double a_x = x2 - x1;
-        double a_y = y2 - y1;
-        double b_x = x3 - x2;
-        double b_y = y3 - y2;
+    public double angleBetweenPoints(double x1, double y1, double x2, double y2, double x3, double y3) {
+        double aX = x1 - x2;
+        double aY = y1 - y2;
+        double bX = x3 - x2;
+        double bY = y3 - y2;
 
-        double a_dot_b = a_x * b_x + a_y * b_y;
-        double a_norm = distance(a_x, a_y, 0, 0);
-        double b_norm = distance(b_x, b_y, 0, 0);
+        double aDotB = aX * bX + aY * bY;
 
-        double angle = acos(a_dot_b / (a_norm * b_norm));
-        angle = (angle + 2 * Math.PI) % (2 * Math.PI); 
+        double magnitudeA = Math.sqrt(aX*aX+aY*aY);
+        double magnitudeB = Math.sqrt(bX*bX+bY*bY);
+
+        double angle = Math.acos(aDotB / (magnitudeA * magnitudeB));
 
         return angle;
     }

@@ -395,6 +395,12 @@ public class DecideTest {
         assertFalse("angle between points (0,0), (1,1), (0,1) is not less than PI-3 or more than PI+3", decide.CMV9(1, 1, 3));
     }
 
+    @Test
+    public void testAngleBetweenPoints() {
+        assertEquals(Math.PI / 2, decide.angleBetweenPoints(1, 1, 2, 1, 2, 2), 0.01); // 90 degrees 
+        assertEquals(Math.PI, decide.angleBetweenPoints(1, 1, 2, 2, 3, 3), 0.01); // 180 degrees 
+    }
+
 
     @Test
     public void testCMV10() {
