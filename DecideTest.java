@@ -6,7 +6,9 @@ public class DecideTest {
     //delta for tests with doubles
     private double delta = 0.000001;
     private Decide decide;
-
+    public enum Connectors {
+        NOTUSED, ORR, ANDD
+    }
     @Before
     public void setUp() {
         decide = new Decide();
@@ -23,6 +25,29 @@ public class DecideTest {
     @Test
     public void testPUMCreator(){
         //TODO
+        boolean [] CMVtest = {true, true, true, true, true, true, true, true, true, true, true, true, false ,false , false};
+        Connectors [][] LCMtest = new Connectors[15][15];
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                LCMtest[i][j] = Connectors.NOTUSED;
+            }
+        }
+        LCMtest[0][0] = Connectors.ORR;
+        LCMtest[0][14] = Connectors.ANDD;
+        boolean[][] expectedPUM= new boolean[15][15];
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                expectedPUM[i][j] = false;
+            }
+        }
+        expectedPUM[0][14] = false;
+        expectedPUM[0][0] = true;
+        decide.PUMCreator();
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                assertEquals(expectedPUM[i][j], decide.PUM[i][j]);
+            }
+        }
     }
     @Test
     public void testCMVCreator(){
