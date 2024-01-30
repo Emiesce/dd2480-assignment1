@@ -390,35 +390,37 @@ public class DecideTest {
     }
 
     @Test
-    public void testCMV11() {
-        double x1 = 2;
-        double y1 = 0;
+    public void testCMV8() {
+        assertThrows(AssertionError.class, () -> decide.CMV8(1, 0, 0)); //tests bad parameters
 
-        double x2 = 1;
-        double y2 = 0;
+        decide.NUMPOINTS = 5;
+        //These points should be contained within a circle with radius 1
+        decide.x[0] = 0;
+        decide.y[0] = 0;
+        decide.x[2] = 0;
+        decide.y[2] = 1;
+        decide.x[4] = 0;
+        decide.y[4] = -1;
 
-        double x3 = 1;
-        double y3 = 0;
-
-        double x4 = 3;
-        double y4 = 0;
-
-        decide.NUMPOINTS = 4;
-        decide.x[0] = x1;
-        decide.y[0] = y1;
-        decide.x[1] = x2;
-        decide.y[1] = y2;
-        decide.x[2] = x3;
-        decide.y[2] = y3;
-        decide.x[3] = x4;
-        decide.y[3] = y4;
-
-        assertThrows(AssertionError.class, () -> decide.CMV11(10)); //tests bad parameters (GPTS > NUMPOINTS - 2)
-        assertThrows(AssertionError.class, () -> decide.CMV11(0)); //tests bad parameters (GPTS < 1)
-        assertTrue("Returned false even though X[2] - X[0] < 0", decide.CMV11(1));
-        assertFalse("Returned true even though X[j] - X[i] < 0 is not possible with gpts = 2", decide.CMV11(2));
+        assertTrue("parameter radius is lesser than smallest circle and should return true but is not", decide.CMV8(0.9, 1, 1));
+        assertFalse("parameter radius is greater than smallest circle and should return false but is not", decide.CMV8(1.1, 1, 1));
     }
+  
+    @Test
+    public void testCMV14() {
+        decide.NUMPOINTS = 5;
+        //forms a triangle with area 0.5
+        decide.x[0] = 0;
+        decide.y[0] = 0;
+        decide.x[2] = 1;
+        decide.y[2] = 1;
+        decide.x[4] = 0;
+        decide.y[4] = 1;
 
+        assertTrue("there are points with triangle areas between 0.4 and 0.6 but it returns false", decide.CMV14(0.4, 0.6, 1, 1));
+        assertFalse("there are no points with triangle area below 0.4 but it returns true", decide.CMV14(0.4, 0.4, 1, 1));
+    }
+    
     @Test
     public void testCMV12() {
         //These points have a distance of 5 between each other

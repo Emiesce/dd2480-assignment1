@@ -323,8 +323,30 @@ public class Decide {
   
   
 
-     boolean CMV8(){
-        //TODO
+     boolean CMV8(double radius1, int apts, int bpts){
+        assert(1 <= apts && 1 <= bpts);
+        assert(apts + bpts <= NUMPOINTS-3);
+        if(NUMPOINTS < 5) return false;
+
+        double x1;
+        double y1;
+        double x2;
+        double y2;
+        double x3;
+        double y3;
+
+        for(int i = 0; i < NUMPOINTS - (apts + bpts + 2); i++) {
+             x1 = x[i];
+             y1 = y[i];
+             x2 = x[i + apts + 1];
+             y2 = y[i + apts + 1];
+             x3 = x[i + apts + bpts + 2];
+             y3 = y[i + apts + bpts + 2];
+
+             double smallestRadius = smallestRadius(x1, y1, x2, y2, x3, y3);
+
+             if(doubleCompare(smallestRadius, radius1) != CompType.LT) return true;
+         }
 
         return false;
     }
@@ -428,8 +450,42 @@ public class Decide {
         return false;
     }
 
-     boolean CMV14(){
-        //TODO
+     boolean CMV14(double area1, double area2, int epts, int fpts){
+        if(NUMPOINTS < 5) return false;
+
+        double x1;
+        double y1;
+
+        double x2;
+        double y2;
+
+        double x3;
+        double y3;
+
+        boolean area1Condition = false;
+        boolean area2Condition = false;
+
+        for(int i = 0; i < NUMPOINTS - (epts + fpts + 2); i++) {
+            x1 = x[i];
+            y1 = y[i];
+
+            x2 = x[i + epts + 1];
+            y2 = y[i + epts + 1];
+
+            x3 = x[i + epts + fpts + 2];
+            y3 = y[i + epts + fpts + 2];
+
+            double triangleArea = triangleArea(x1, y1, x2, y2, x3, y3);
+
+            if(!area1Condition) {
+                if(doubleCompare(triangleArea, area1) == CompType.GT) area1Condition = true;
+            }
+            if(!area2Condition) {
+                if(doubleCompare(triangleArea, area2) == CompType.LT) area2Condition = true;
+            }
+
+            if(area1Condition && area2Condition) return true;
+        }
 
         return false;
     }
