@@ -444,9 +444,32 @@ public class Decide {
         return false;
     }
 
-     boolean CMV13(){
-        //TODO
-
+    public boolean CMV13(int apts, int bpts, double radius1, double radius2) {
+        if (NUMPOINTS < 5) {
+            return false;
+        }
+        assert(radius2 >= 0);
+    
+        for (int i = 0; i <= NUMPOINTS - (apts + bpts + 2); i++) {
+            double x1 = x[i];
+            double y1 = y[i];
+    
+            double x2 = x[i + apts + 1];
+            double y2 = y[i + apts + 1];
+    
+            double x3 = x[i + apts + bpts + 2];
+            double y3 = y[i + apts + bpts + 2];
+    
+            System.out.println("x1:" + x1 + " y1:" + y1 + " x2:" + x2 + " y2:" + y2 + " x3:" + x3 + " y3:" + y3);
+    
+            if (isInsideCircle(x1, y1, x2, y2, x3, y3, radius1)) {
+                continue;
+            }
+    
+            if (isInsideCircle(x1, y1, x2, y2, x3, y3, radius2)) {
+                return true; 
+            }
+        }
         return false;
     }
 
@@ -556,6 +579,27 @@ public class Decide {
         double circumradius = (a * b * c) /
                 (4 * pow(s * (a + b - s) * (a + c - s) * (b + c - s), 0.5));
         return circumradius;
+    }
+
+    //check if three points are inside or on a circle with the given radius.
+    public boolean isInsideCircle(double x1, double y1, double x2, double y2, double x3, double y3, double radius) {
+        double a = x2 - x1;
+        double b = y2 - y1;
+        double c = x3 - x1;
+        double d = y3 - y1;
+
+        double e = a * (x1 + x2) + b * (y1 + y2);
+        double f = c * (x1 + x3) + d * (y1 + y3);
+
+        double g = 2 * (a * (y3 - y2) - b * (x3 - x2));
+
+        double centerX = (d * e - b * f) / g;
+        double centerY = (a * f - c * e) / g;
+
+        double distanceSquared = (x1 - centerX) * (x1 - centerX) + (y1 - centerY) * (y1 - centerY);
+        double radiusSquared = radius * radius;
+
+        return distanceSquared <= radiusSquared;
     }
     
 }
