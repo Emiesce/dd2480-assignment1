@@ -75,7 +75,19 @@ public class Decide {
 
      boolean[][] PUMCreator(){
         //TODO
-
+        for(int i = 0; i < 15; ++i){
+            for(int j = 0; j < 15; ++j){
+                if(LCM[i][j]==Connectors.NOTUSED){
+                    PUM[i][j] = true;
+                }
+                else if(LCM[i][j]==Connectors.ANDD){
+                    PUM[i][j] = CMV[i] && CMV[j];
+                }
+                else if(LCM[i][j]==Connectors.ORR){
+                    PUM[i][j] = CMV[i] || CMV[j];
+                }
+            }
+        }
         return new boolean[0][0];
     }
 
