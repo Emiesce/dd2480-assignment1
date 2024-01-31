@@ -385,6 +385,49 @@ public class DecideTest {
         assertFalse("Distance is 3 which is less than 4, but CMV7 returns true", decide.CMV7(2, 4));
     }
 
+    @Test
+    public void testCMV9() {
+        double x1 = 0;
+        double y1 = 0;
+
+        double x2 = 0;
+        double y2 = 0;
+
+        double x3 = 1;
+        double y3 = 1;
+
+        double x4 = 0;
+        double y4 = 0;
+
+        double x5 = 0;
+        double y5 = 1;
+
+        decide.NUMPOINTS = 5;
+        decide.x[0] = x1;
+        decide.y[0] = y1;
+        decide.x[1] = x2;
+        decide.y[1] = y2;
+        decide.x[2] = x3;
+        decide.y[2] = y3;
+        decide.x[3] = x4;
+        decide.y[3] = y4;
+        decide.x[4] = x5;
+        decide.y[4] = y5;
+
+        assertThrows(AssertionError.class, () -> decide.CMV9(0, 1, 1)); //cpts under 0 not allowed
+        assertThrows(AssertionError.class, () -> decide.CMV9(1, 0, 1)); //dpts under 0 not allowed
+        assertThrows(AssertionError.class, () -> decide.CMV9(1, decide.NUMPOINTS, 1)); //cpts + dpts > NUMPOINTS - 3 not allowed 
+        assertThrows(AssertionError.class, () -> decide.CMV9(decide.NUMPOINTS, 1, 1)); //cpts + dpts > NUMPOINTS - 3 not allowed 
+
+        assertTrue("angle between points (0,0), (1,1), (0,1) is less than PI-0.1", decide.CMV9(1, 1, 0.1));
+        assertFalse("angle between points (0,0), (1,1), (0,1) is not less than PI-3 or more than PI+3", decide.CMV9(1, 1, 3));
+    }
+
+    @Test
+    public void testAngleBetweenPoints() {
+        assertEquals(Math.PI / 2, decide.angleBetweenPoints(1, 1, 2, 1, 2, 2), 0.01); // 90 degrees 
+        assertEquals(Math.PI, decide.angleBetweenPoints(1, 1, 2, 2, 3, 3), 0.01); // 180 degrees 
+    }
 
 
     @Test

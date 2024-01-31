@@ -412,9 +412,30 @@ public class Decide {
         return false;
     }
 
-     boolean CMV9(){
-        //TODO
-
+    public boolean CMV9(int cpts, int dpts, double epsilon) {
+        if (NUMPOINTS < 5) {
+            return false;
+        }
+        assert(cpts + dpts <= NUMPOINTS - 3);
+        assert(cpts >= 1);
+        assert(dpts >= 1);
+    
+        for (int i = 0; i < NUMPOINTS - (cpts + dpts + 2); i++) {
+            double x1 = x[i];
+            double y1 = y[i];
+    
+            double x2 = x[i + cpts + 1];
+            double y2 = y[i + cpts + 1];
+    
+            double x3 = x[i + cpts + dpts + 2];
+            double y3 = y[i + cpts + dpts + 2];
+    
+            if (doubleCompare(angleBetweenPoints(x1, y1, x2, y2, x3, y3), PI - epsilon) == CompType.LT ||
+                doubleCompare(angleBetweenPoints(x1, y1, x2, y2, x3, y3), PI + epsilon) == CompType.GT) {
+                return true;
+            }
+        }
+    
         return false;
     }
 
@@ -617,6 +638,23 @@ public class Decide {
         double circumradius = (a * b * c) /
                 (4 * pow(s * (a + b - s) * (a + c - s) * (b + c - s), 0.5));
         return circumradius;
+    }
+
+    // Angle between three points
+    public double angleBetweenPoints(double x1, double y1, double x2, double y2, double x3, double y3) {
+        double aX = x1 - x2;
+        double aY = y1 - y2;
+        double bX = x3 - x2;
+        double bY = y3 - y2;
+
+        double aDotB = aX * bX + aY * bY;
+
+        double magnitudeA = Math.sqrt(aX*aX+aY*aY);
+        double magnitudeB = Math.sqrt(bX*bX+bY*bY);
+
+        double angle = Math.acos(aDotB / (magnitudeA * magnitudeB));
+
+        return angle;
     }
     
 }
