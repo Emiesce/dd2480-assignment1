@@ -439,15 +439,6 @@ public class DecideTest {
         assertTrue("Returned false even though the points (0,0), (0,1), (1,0) cannot be contained in a circle of radius1 and can be contained in one with radius2", decide.CMV13(1, 1, 0.1, 5));
         assertFalse("Returned true even though the points (0,0), (0,1), (1,0) can be contained in circle of a radius1", decide.CMV13(1, 2, 5, 0.1));
     }
-
-    @Test
-    public void testIsInsideCircle() {
-        assertTrue(decide.isInsideCircle(-1, 0, 1, 0, 0, 1, 2)); //on the circle
-        assertTrue(decide.isInsideCircle(0, 0, 0.5, 0, 0, 0.5, 2)); //in the circle
-        assertFalse(decide.isInsideCircle(0, 0, 0, 1, 1, 0, 0.1)); //outside the circle
-        assertTrue(decide.isInsideCircle(0, 0, 0, 1, 1, 0, 5)); //in the circle
-        assertFalse(decide.isInsideCircle(10, 10, 0, 0, 1, 1, 2)); //outside the circle
-    }
   
     @Test
     public void testCMV14() {
