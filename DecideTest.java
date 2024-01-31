@@ -13,7 +13,13 @@ public class DecideTest {
 
     @Test 
     public void testDecide(){
-        //TODO
+        boolean [] FUVtest1 = {true, true, true, true, true, true, true, true, true, true, true, true, false ,true , true};
+        boolean [] FUVtest2 = {true, true, true, true, true, true, true, true, true, true, true, true, true ,true , true};
+        boolean [] FUVtest3 = {false, true, true, true, true, true, true, true, true, true, true, true, true ,true , true};
+
+        assertFalse("FUVtest1 should return false/no launch", decide.decide(FUVtest1));
+        assertTrue("FUVtest2 should return true/launch", decide.decide(FUVtest2));
+        assertFalse("FUVtest3 should return false/no launch", decide.decide(FUVtest3));
     }
     @Test
     public void testFUVCreator(){

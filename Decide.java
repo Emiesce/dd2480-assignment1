@@ -63,9 +63,14 @@ public class Decide {
         //TODO
     }
      boolean decide(){
-        //TODO
+        // If any element in FUV is false, return false/no launch
+        for(int i = 0; i < 15; ++i){
+            if(!FUV[i]){
+                return false;
+            }
+        }
 
-        return false;
+        return true;
     }
      boolean[] FUVCreator(){
         //TODO
