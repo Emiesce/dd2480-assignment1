@@ -526,9 +526,36 @@ public class Decide {
         return false;
     }
 
-     boolean CMV13(){
-        //TODO
-
+    public boolean CMV13(int apts, int bpts, double radius1, double radius2) {
+        if (NUMPOINTS < 5) {
+            return false;
+        }
+        assert(radius2 >= 0);
+        
+        boolean check1 = false;
+        boolean check2 = false; 
+    
+        for (int i = 0; i < NUMPOINTS - (apts + bpts + 2); i++) {
+            double x1 = x[i];
+            double y1 = y[i];
+    
+            double x2 = x[i + apts + 1];
+            double y2 = y[i + apts + 1];
+    
+            double x3 = x[i + apts + bpts + 2];
+            double y3 = y[i + apts + bpts + 2];
+    
+            if (smallestRadius(x1, y1, x2, y2, x3, y3) > radius1) {
+                check1 = true;
+            }
+    
+            if (smallestRadius(x1, y1, x2, y2, x3, y3) <= radius2) {
+                check2 = true;
+            }
+            
+            if(check1 == true && check2 == true)
+                return true;
+        }
         return false;
     }
 

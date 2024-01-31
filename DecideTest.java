@@ -476,6 +476,40 @@ public class DecideTest {
         assertTrue("parameter radius is lesser than smallest circle and should return true but is not", decide.CMV8(0.9, 1, 1));
         assertFalse("parameter radius is greater than smallest circle and should return false but is not", decide.CMV8(1.1, 1, 1));
     }
+
+    @Test
+    public void testCMV13() {
+        double x1 = 0;
+        double y1 = 0;
+    
+        double x2 = 3;
+        double y2 = 3;
+    
+        double x3 = 0;
+        double y3 = 1;
+    
+        double x4 = 3;
+        double y4 = 3;
+
+        double x5 = 1;
+        double y5 = 0;
+    
+        decide.NUMPOINTS = 5;
+        decide.x[0] = x1;
+        decide.y[0] = y1;
+        decide.x[1] = x2;
+        decide.y[1] = y2;
+        decide.x[2] = x3;
+        decide.y[2] = y3;
+        decide.x[3] = x4;
+        decide.y[3] = y4;
+        decide.x[4] = x5;
+        decide.y[4] = y5;
+    
+        assertThrows(AssertionError.class, () -> decide.CMV13(1, 2, 0.5, -1.5)); //tests bad parameters radius2 < 0
+        assertTrue("Returned false even though the points (0,0), (0,1), (1,0) cannot be contained in a circle of radius1 and can be contained in one with radius2", decide.CMV13(1, 1, 0.1, 5));
+        assertFalse("Returned true even though the points (0,0), (0,1), (1,0) can be contained in circle of a radius1", decide.CMV13(1, 2, 5, 0.1));
+    }
   
     @Test
     public void testCMV14() {
