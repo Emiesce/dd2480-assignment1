@@ -1,12 +1,11 @@
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
 public class DecideTest {
     //delta for tests with doubles
     private double delta = 0.000001;
     private Decide decide;
-
+    
     @Before
     public void setUp() {
         decide = new Decide();
@@ -23,6 +22,35 @@ public class DecideTest {
     @Test
     public void testPUMCreator(){
         //TODO
+        boolean [] CMVtest = {true, true, true, true, true, true, true, true, true, true, true, true, false ,false , false};
+        Decide.Connectors [][] LCMtest = new Decide.Connectors[15][15];
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                LCMtest[i][j] = Decide.Connectors.NOTUSED;
+            }
+        }
+        LCMtest[0][0] = Decide.Connectors.ORR;
+        LCMtest[14][0] = Decide.Connectors.ANDD;
+
+        LCMtest[0][14] = Decide.Connectors.ANDD;
+
+        boolean[][] expectedPUM= new boolean[15][15];
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                expectedPUM[i][j] = true;
+            }
+        }
+        expectedPUM[0][14] = false;
+        expectedPUM[0][0] = true;
+        expectedPUM[14][0] = false;
+        decide.CMV = CMVtest;
+        decide.LCM = LCMtest;
+        decide.PUMCreator();
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                assertEquals(expectedPUM[i][j], decide.PUM[i][j]);
+            }
+        }
     }
     @Test
     public void testCMVCreator(){
@@ -357,6 +385,49 @@ public class DecideTest {
         assertFalse("Distance is 3 which is less than 4, but CMV7 returns true", decide.CMV7(2, 4));
     }
 
+    @Test
+    public void testCMV9() {
+        double x1 = 0;
+        double y1 = 0;
+
+        double x2 = 0;
+        double y2 = 0;
+
+        double x3 = 1;
+        double y3 = 1;
+
+        double x4 = 0;
+        double y4 = 0;
+
+        double x5 = 0;
+        double y5 = 1;
+
+        decide.NUMPOINTS = 5;
+        decide.x[0] = x1;
+        decide.y[0] = y1;
+        decide.x[1] = x2;
+        decide.y[1] = y2;
+        decide.x[2] = x3;
+        decide.y[2] = y3;
+        decide.x[3] = x4;
+        decide.y[3] = y4;
+        decide.x[4] = x5;
+        decide.y[4] = y5;
+
+        assertThrows(AssertionError.class, () -> decide.CMV9(0, 1, 1)); //cpts under 0 not allowed
+        assertThrows(AssertionError.class, () -> decide.CMV9(1, 0, 1)); //dpts under 0 not allowed
+        assertThrows(AssertionError.class, () -> decide.CMV9(1, decide.NUMPOINTS, 1)); //cpts + dpts > NUMPOINTS - 3 not allowed 
+        assertThrows(AssertionError.class, () -> decide.CMV9(decide.NUMPOINTS, 1, 1)); //cpts + dpts > NUMPOINTS - 3 not allowed 
+
+        assertTrue("angle between points (0,0), (1,1), (0,1) is less than PI-0.1", decide.CMV9(1, 1, 0.1));
+        assertFalse("angle between points (0,0), (1,1), (0,1) is not less than PI-3 or more than PI+3", decide.CMV9(1, 1, 3));
+    }
+
+    @Test
+    public void testAngleBetweenPoints() {
+        assertEquals(Math.PI / 2, decide.angleBetweenPoints(1, 1, 2, 1, 2, 2), 0.01); // 90 degrees 
+        assertEquals(Math.PI, decide.angleBetweenPoints(1, 1, 2, 2, 3, 3), 0.01); // 180 degrees 
+    }
 
 
     @Test
