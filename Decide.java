@@ -67,9 +67,23 @@ public class Decide {
 
         return false;
     }
+    
      boolean[] FUVCreator(){
-        //TODO
-
+        for(int i = 0; i < 15; ++i) {
+            if (!PUV[i]) { // If PUV[i] is false, FUV[i] is True
+                FUV[i] = true;
+            }
+            else {
+                boolean temp = true;
+                for (int j = 0; j < 15; ++j) {
+                    if(!PUM[i][j]) { // If PUM[i][j] is false, FUV[i] is false
+                        temp = false;
+                        break;
+                    }
+                }
+                FUV[i] = temp;
+            }
+        }
         return new boolean[0];
     }
 

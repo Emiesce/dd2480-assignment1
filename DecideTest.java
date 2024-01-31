@@ -18,6 +18,32 @@ public class DecideTest {
     @Test
     public void testFUVCreator(){
         //TODO
+        // 1. FUV[0] is false because PUV[0] is true, but PUM[0,1] and PUM[0,3] are false.
+        // 2. FUV[1] is true because PUV[1] is false.
+        // 3. FUV[2] is true because PUV[2] is true and PUM[2,i] is true for all i6 = 2, 0 ≤ i ≤ 14
+
+        boolean[][] PUMtest= new boolean[15][15];
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                PUMtest[i][j] = true;
+            }
+        }
+
+        boolean[] PUVtest= new boolean[15];
+        for(int i = 0; i < 15; i++){
+            PUVtest[i] = true;
+        }
+
+        PUVtest[1] = false;
+        PUMtest[0][1] = false;
+        PUMtest[0][3] = false;
+
+        decide.PUV = PUVtest;
+        decide.PUM = PUMtest;
+        decide.FUVCreator();
+        assertEquals(false, decide.FUV[0]);
+        assertEquals(true, decide.FUV[1]);
+        assertEquals(true, decide.FUV[2]);
     }
     @Test
     public void testPUMCreator(){
