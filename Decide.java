@@ -61,7 +61,15 @@ public class Decide {
     }
 
     public void main(String[] args){
-        //TODO
+        CMVCreator();
+        PUMCreator();
+        FUVCreator();
+        boolean result = decide();
+        if(result){
+            System.out.println("YES");
+        }else{
+            System.out.println("NO");
+        }
     }
      boolean decide(){
         // If any element in FUV is false, return false/no launch
