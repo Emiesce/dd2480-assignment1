@@ -380,8 +380,9 @@ public class DecideTest {
         decide.x[3] = x4;
         decide.y[3] = y4;
 
+        assertThrows(AssertionError.class, () -> decide.CMV7(0, 1)); //kpts under 1 not allowed
+        assertThrows(AssertionError.class, () -> decide.CMV7(10, 1)); //kpts > NUMPOINTS - 2 not allowed
         assertTrue("Distance is 3 which is more than 1, but CMV7 returns false", decide.CMV7(2, 1));
-        assertFalse("kpts is larger than NUMPOINTS - 2, but CMV7 return true", decide.CMV7(3, 1));
         assertFalse("Distance is 3 which is less than 4, but CMV7 returns true", decide.CMV7(2, 4));
     }
 

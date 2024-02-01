@@ -362,10 +362,12 @@ public class Decide {
     }
 
     boolean CMV7(int kpts, double length1) {
-        if (NUMPOINTS < 3 || kpts < 1 || kpts > NUMPOINTS - 2) {
+        if (NUMPOINTS < 3) {
             return false;
         }
 
+        assert(kpts >= 1);
+        assert(kpts <= NUMPOINTS - 2);
 
         for (int i = 0; i <= NUMPOINTS - kpts - 2; i++) {
             double x1 = x[i];
