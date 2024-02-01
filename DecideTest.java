@@ -16,8 +16,7 @@ public class DecideTest {
         //TODO
     }
     @Test
-    public void testFUVCreator(){
-        //TODO
+    public void testFUVCreator() {
         // 1. FUV[0] is false because PUV[0] is true, but PUM[0,1] and PUM[0,3] are false.
         // 2. FUV[1] is true because PUV[1] is false.
         // 3. FUV[2] is true because PUV[2] is true and PUM[2,i] is true for all i6 = 2, 0 ≤ i ≤ 14

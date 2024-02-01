@@ -70,9 +70,6 @@ public class Decide {
     }
     
      boolean[] FUVCreator(){
-        CMVCreator();
-        PUMCreator();
-
         for(int i = 0; i < 15; ++i) {
             if (!PUV[i]) { // If PUV[i] is false, FUV[i] is True
                 FUV[i] = true;
