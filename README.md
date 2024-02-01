@@ -28,7 +28,7 @@ Unless a new issue or bug arises, this program should not be modified.
 
 **Iley**: Implemented CMV7, 9, 11, 13 along with their tests. Reviewed CMV8, 12, 14. Also created the helper function angleBetweenPoints and a test for it.
 
-**Rached**: 
+**Rached**: Implemented PUMCreator and CVMCreator. Performed initial commit for parameters and function prototypes, and created test file.
 
 **Roxanne**: Implemented CMV0-6 along with their tests, Reviewed CMV PUMCreator, FUVCreator, Decide() and PUMCreator(). Created helper function smallestRadius and distance which respectively give the radius of the smallest circle containing three given points and calculate the distance between two points.
 
