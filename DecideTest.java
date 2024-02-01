@@ -11,6 +11,208 @@ public class DecideTest {
         decide = new Decide();
     }
 
+    @Test
+    public void testMAIN() {
+        decide.NUMPOINTS = 52;
+
+        //Testing all LIC (assuming that there are no overlaps)
+        //LIC0 : points are farther than 5 units
+        decide.parameters.LENGTH1 = 5;
+        decide.x[0] = 0;
+        decide.y[0] = 10;
+        decide.x[1] = 0;
+        decide.y[1] = 20;
+
+        //LIC1 points is not contained within radius of 0.5
+        decide.parameters.RADIUS1 = 0.5;
+        decide.x[2] = 10;
+        decide.y[2] = 10;
+        decide.x[3] = 10;
+        decide.y[3] = 11;
+        decide.x[4] = 10;
+        decide.y[4] = 9;
+
+        //LIC2 points form an angle of 90 degrees, should fulfill the criteria of being lesser than pi-1 roughly 120 deg
+        decide.parameters.EPSILON = 1;
+        decide.x[5] = 20;
+        decide.y[5] = 11;
+        decide.x[6] = 20;
+        decide.y[6] = 10;
+        decide.x[7] = 21;
+        decide.y[7] = 10;
+
+        //LIC3 points form a triangle with 0.5 as area
+        decide.parameters.AREA1 = 0.4;
+        decide.x[8] = 30;
+        decide.y[8] = 11;
+        decide.x[9] = 30;
+        decide.y[9] = 10;
+        decide.x[10] = 31;
+        decide.y[10] = 10;
+
+        //LIC4 2 points contained in quadrant 1
+        decide.parameters.QPTS = 2;
+        decide.parameters.QUADS = 1;
+        decide.x[11] = 40;
+        decide.y[11] = 1;
+        decide.x[12] = 40;
+        decide.y[12] = -1;
+
+        //LIC5 difference in X-axis between two points is negative
+        decide.x[13] = 50;
+        decide.y[13] = 10;
+        decide.x[14] = 49;
+        decide.y[14] = 10;
+
+        //LIC6 2nd point is at a distance 1 from line created by the first and last point
+        decide.parameters.NPTS = 3;
+        decide.parameters.DIST = 0.9;
+        decide.x[15] = 60;
+        decide.y[15] = 10;
+        decide.x[16] = 61;
+        decide.y[16] = 11;
+        decide.x[17] = 61;
+        decide.y[17] = 10;
+
+        //LIC7 points are 10 units away from each other
+        //LENGTH1 = 5
+        decide.parameters.KPTS = 1;
+        decide.x[18] = 70;
+        decide.y[18] = 10;
+        decide.x[19] = 0;
+        decide.y[19] = 0;
+        decide.x[20] = 70;
+        decide.y[20] = 20;
+
+        //LIC8 points are not contained within circle of radius 0.5
+        //decide.parameters.RADIUS1 = 0.5;
+        decide.parameters.APTS = 1;
+        decide.parameters.BPTS = 1;
+        decide.x[21] = 80;
+        decide.y[21] = 9;
+        decide.x[22] = 0;
+        decide.y[22] = 0;
+        decide.x[23] = 80;
+        decide.y[23] = 11;
+        decide.x[24] = 0;
+        decide.y[24] = 0;
+        decide.x[25] = 80;
+        decide.y[25] = 10;
+
+        //LIC9 same as LIC2 but with space between the points and shifted in the x axis as the pattern follows
+        decide.parameters.CPTS = 1;
+        decide.parameters.DPTS = 1;
+        decide.x[26] = 90;
+        decide.y[26] = 11;
+        decide.x[27] = 0;
+        decide.y[27] = 0;
+        decide.x[28] = 90;
+        decide.y[28] = 10;
+        decide.x[29] = 0;
+        decide.y[29] = 0;
+        decide.x[30] = 91;
+        decide.y[30] = 10;
+
+        //LIC10 same as LIC3 but with space inbetween
+        //Area should be greater than 0.4
+        decide.parameters.EPTS = 1;
+        decide.parameters.FPTS = 1;
+        decide.x[31] = 100;
+        decide.y[31] = 11;
+        decide.x[32] = 0;
+        decide.y[32] = 0;
+        decide.x[33] = 100;
+        decide.y[33] = 10;
+        decide.x[34] = 0;
+        decide.y[34] = 0;
+        decide.x[35] = 101;
+        decide.y[35] = 10;
+
+        //LIC11 same as LIC5 but with space between
+        decide.parameters.GPTS = 1;
+        decide.x[36] = 110;
+        decide.y[36] = 10;
+        decide.x[37] = 0;
+        decide.y[37] = 0;
+        decide.x[38] = 109;
+        decide.y[38] = 10;
+
+        //LIC12 points are at a distance 6 which is between 5 and 7
+        decide.parameters.KPTS = 1;
+        //LENGTH1 = 5
+        decide.parameters.LENGTH2 = 7;
+        decide.x[39] = 120;
+        decide.y[39] = 10;
+        decide.x[40] = 0;
+        decide.y[40] = 0;
+        decide.x[41] = 120;
+        decide.y[41] = 16;
+
+        //LIC13 points should be contained in a circle between 0.5 and 2
+        //A_PTS = 1
+        //B_PTS = 1
+        //RADIUS1 = 0.5
+        decide.parameters.RADIUS2 = 2;
+        decide.x[42] = 130;
+        decide.y[42] = 11;
+        decide.x[43] = 0;
+        decide.y[43] = 0;
+        decide.x[44] = 130;
+        decide.y[44] = 10;
+        decide.x[45] = 0;
+        decide.y[45] = 0;
+        decide.x[46] = 130;
+        decide.y[46] = 9;
+
+        //LIC14 triangle should be an area between 0.4 and 2
+        //E_PTS = 1
+        //F_PTS = 1
+        //AREA1 = 0.4
+        decide.parameters.AREA2 = 2;
+        decide.x[47] = 140;
+        decide.y[47] = 11;
+        decide.x[48] = 0;
+        decide.y[48] = 0;
+        decide.x[49] = 140;
+        decide.y[49] = 10;
+        decide.x[50] = 0;
+        decide.y[50] = 0;
+        decide.x[51] = 141;
+        decide.y[51] = 10;
+
+        //all cmv:s has to be true
+        for(int i = 0; i < 15; i++) {
+            decide.PUV[i] = true;
+            for(int j = 0; j < 15; j++) {
+                decide.LCM[i][j] = Decide.Connectors.ANDD;
+            }
+        }
+
+        decide.CMVCreator();
+        decide.PUMCreator();
+        decide.FUVCreator();
+        boolean result = decide.decide();
+
+        assertTrue("should be true but is false", result);
+
+        //assuming one CMV fails we should not be launching
+        decide.CMV[0] = false;
+        decide.PUMCreator();
+        decide.FUVCreator();
+        result = decide.decide();
+        assertFalse("should be false but is true", result);
+
+        //should launch because this change makes it ignore CMV0
+        for(int i = 0; i < 15; i++) {
+            decide.LCM[0][i] = Decide.Connectors.NOTUSED;
+            decide.LCM[i][0] = Decide.Connectors.NOTUSED;
+        }
+        decide.PUMCreator();
+        decide.FUVCreator();
+        result = decide.decide();
+        assertTrue("should launch but is not", result);
+    }
+
     @Test 
     public void testDecide(){
         boolean [] FUVtest1 = {true, true, true, true, true, true, true, true, true, true, true, true, false ,true , true};
