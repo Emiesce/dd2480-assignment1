@@ -1,3 +1,5 @@
+import javax.swing.plaf.FontUIResource;
+
 import static java.lang.Math.*;
 
 public class Decide {
@@ -60,7 +62,15 @@ public class Decide {
     }
 
     public void main(String[] args){
-        //TODO
+        CMVCreator();
+        PUMCreator();
+        FUVCreator();
+        boolean result = decide();
+        if(result){
+            System.out.println("YOU MAY LAUNCH !");
+        }else{
+            System.out.println("ERROR ! DO NOT LAUNCH !");
+        }
     }
      boolean decide(){
         //TODO
