@@ -565,6 +565,7 @@ public class Decide {
     }
 
      boolean CMV14(double area1, double area2, int epts, int fpts){
+        assert(area2 >= 0);
         if(NUMPOINTS < 5) return false;
 
         double x1;

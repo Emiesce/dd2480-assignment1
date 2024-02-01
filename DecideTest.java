@@ -523,6 +523,8 @@ public class DecideTest {
         decide.x[4] = 0;
         decide.y[4] = 1;
 
+        assertThrows(AssertionError.class, () -> decide.CMV14(1, -1, 1, 1)); //tests bad parameters
+
         assertTrue("there are points with triangle areas between 0.4 and 0.6 but it returns false", decide.CMV14(0.4, 0.6, 1, 1));
         assertFalse("there are no points with triangle area below 0.4 but it returns true", decide.CMV14(0.4, 0.4, 1, 1));
     }
