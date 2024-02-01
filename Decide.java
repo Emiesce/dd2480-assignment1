@@ -1,5 +1,3 @@
-import javax.swing.plaf.FontUIResource;
-
 import static java.lang.Math.*;
 
 public class Decide {
@@ -67,9 +65,9 @@ public class Decide {
         FUVCreator();
         boolean result = decide();
         if(result){
-            System.out.println("YOU MAY LAUNCH!");
+            System.out.println("YES");
         }else{
-            System.out.println("ERROR! DO NOT LAUNCH!");
+            System.out.println("NO");
         }
     }
      boolean decide(){
@@ -134,7 +132,7 @@ public class Decide {
                     CMV[i] = CMV8(parameters.RADIUS1,parameters.APTS, parameters.BPTS);
                     break;
                 case 9:
-                    CMV[i] = CMV9(parameters.EPSILON,parameters.CPTS, parameters.DPTS);
+                    CMV[i] = CMV9(parameters.CPTS, parameters.DPTS, parameters.EPSILON);
                     break;
                 case 10:
                     CMV[i] = CMV10(parameters.AREA1,parameters.EPTS, parameters.FPTS);
