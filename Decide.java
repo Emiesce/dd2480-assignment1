@@ -362,12 +362,12 @@ public class Decide {
     }
 
     boolean CMV7(int kpts, double length1) {
+        assert(kpts >= 1);
+        assert(kpts <= NUMPOINTS - 2);
+        
         if (NUMPOINTS < 3) {
             return false;
         }
-
-        assert(kpts >= 1);
-        assert(kpts <= NUMPOINTS - 2);
 
         for (int i = 0; i <= NUMPOINTS - kpts - 2; i++) {
             double x1 = x[i];
@@ -415,12 +415,13 @@ public class Decide {
     }
 
     public boolean CMV9(int cpts, int dpts, double epsilon) {
-        if (NUMPOINTS < 5) {
-            return false;
-        }
         assert(cpts + dpts <= NUMPOINTS - 3);
         assert(cpts >= 1);
         assert(dpts >= 1);
+        
+        if (NUMPOINTS < 5) {
+            return false;
+        }
     
         for (int i = 0; i < NUMPOINTS - (cpts + dpts + 2); i++) {
             double x1 = x[i];
@@ -474,11 +475,12 @@ public class Decide {
 
 
     public boolean CMV11(int gpts) {
+        assert(gpts >= 1);
+        assert(gpts <= NUMPOINTS - 2);
+
         if (NUMPOINTS < 3) {
             return false;
         }
-        assert(gpts >= 1);
-        assert(gpts <= NUMPOINTS - 2);
     
         for (int i = 0; i <= NUMPOINTS - gpts - 2; i++) {
             int j = i + gpts + 1;
@@ -529,10 +531,11 @@ public class Decide {
     }
 
     public boolean CMV13(int apts, int bpts, double radius1, double radius2) {
+        assert(radius2 >= 0);
+        
         if (NUMPOINTS < 5) {
             return false;
         }
-        assert(radius2 >= 0);
         
         boolean check1 = false;
         boolean check2 = false; 
