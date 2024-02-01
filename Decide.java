@@ -67,9 +67,9 @@ public class Decide {
         FUVCreator();
         boolean result = decide();
         if(result){
-            System.out.println("YOU MAY LAUNCH !");
+            System.out.println("YOU MAY LAUNCH!");
         }else{
-            System.out.println("ERROR ! DO NOT LAUNCH !");
+            System.out.println("ERROR! DO NOT LAUNCH!");
         }
     }
      boolean decide(){
