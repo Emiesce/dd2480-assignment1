@@ -41,9 +41,9 @@ public class DecideTest {
         decide.PUV = PUVtest;
         decide.PUM = PUMtest;
         decide.FUVCreator();
-        assertEquals(false, decide.FUV[0]);
-        assertEquals(true, decide.FUV[1]);
-        assertEquals(true, decide.FUV[2]);
+        assertFalse("Since PUM[0][1] and PUM[0][3] are false, this should return false", decide.FUV[0]);
+        assertTrue("Since PUV[1] is false, this should return true", decide.FUV[1]);
+        assertTrue("Since PUV[2] is true, but all PUM[2][i] are true, this should return true", decide.FUV[2]);
     }
     @Test
     public void testPUMCreator(){

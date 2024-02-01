@@ -41,6 +41,7 @@ public class Decide {
     boolean[] FUV = new boolean[15];
     boolean[][] PUM = new boolean[15][15];
     boolean[] CMV = new boolean[15];
+    boolean[] PUV = new boolean[15];
     boolean launch;
     
 
@@ -69,6 +70,9 @@ public class Decide {
     }
     
      boolean[] FUVCreator(){
+        CMVCreator();
+        PUMCreator();
+
         for(int i = 0; i < 15; ++i) {
             if (!PUV[i]) { // If PUV[i] is false, FUV[i] is True
                 FUV[i] = true;
