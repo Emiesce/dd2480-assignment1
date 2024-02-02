@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="DecideTest" time="0.07" tests="39" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/alexandermac/Downloads/dd2480-assignment1/decide-task/target/test-classes:/Users/alexandermac/Downloads/dd2480-assignment1/decide-task/target/classes:/Users/alexandermac/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/alexandermac/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="java.vm.vendor" value="Homebrew"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="SE"/>
+    <property name="sun.boot.library.path" value="/usr/local/Cellar/openjdk/21.0.2/libexec/openjdk.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/alexandermac/Downloads/dd2480-assignment1/decide-task/target/surefire/surefirebooter1197468802266516905.jar /Users/alexandermac/Downloads/dd2480-assignment1/decide-task/target/surefire 2024-02-02T14-30-24_865-jvmRun1 surefire13469699697607628768tmp surefire_07290242689228347253tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/alexandermac/Downloads/dd2480-assignment1/decide-task/target/test-classes:/Users/alexandermac/Downloads/dd2480-assignment1/decide-task/target/classes:/Users/alexandermac/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/alexandermac/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/alexandermac"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2024-01-16"/>
+    <property name="java.home" value="/usr/local/Cellar/openjdk/21.0.2/libexec/openjdk.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/alexandermac/Downloads/dd2480-assignment1/decide-task"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/alexandermac/Downloads/dd2480-assignment1/decide-task/target/surefire/surefirebooter1197468802266516905.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="21.0.2"/>
+    <property name="user.name" value="alexandermac"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="14.2.1"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Homebrew"/>
+    <property name="localRepository" value="/Users/alexandermac/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/rt/tq0m814j235d6jh8chmpyvpm0000gn/T/"/>
+    <property name="java.version" value="21.0.2"/>
+    <property name="user.dir" value="/Users/alexandermac/Downloads/dd2480-assignment1/decide-task"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/alexandermac/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Homebrew"/>
+    <property name="java.vm.version" value="21.0.2"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="testFUVCreatorFalse" classname="DecideTest" time="0.005"/>
+  <testcase name="testPUMCreator" classname="DecideTest" time="0"/>
+  <testcase name="testFUVCreatorTrue" classname="DecideTest" time="0"/>
+  <testcase name="testCMV0True" classname="DecideTest" time="0.003"/>
+  <testcase name="testCMV1True" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV2True" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV3True" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV4True" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV5True" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV6True" classname="DecideTest" time="0"/>
+  <testcase name="testAngleBetweenPoints" classname="DecideTest" time="0"/>
+  <testcase name="testCMV8True" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV9True" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV0False" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV10True" classname="DecideTest" time="0"/>
+  <testcase name="testCMV12True" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV13True" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV14True" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV1False" classname="DecideTest" time="0"/>
+  <testcase name="testCMV2False" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV3False" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV4False" classname="DecideTest" time="0"/>
+  <testcase name="testCMV5False" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV6False" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV7False" classname="DecideTest" time="0"/>
+  <testcase name="testCMV8False" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV9False" classname="DecideTest" time="0.001"/>
+  <testcase name="testTriangleArea" classname="DecideTest" time="0"/>
+  <testcase name="testDecideFalse1" classname="DecideTest" time="0"/>
+  <testcase name="testDecideFalse2" classname="DecideTest" time="0.001"/>
+  <testcase name="testSmallestRadius" classname="DecideTest" time="0"/>
+  <testcase name="testDistance" classname="DecideTest" time="0"/>
+  <testcase name="testCMV10False" classname="DecideTest" time="0.001"/>
+  <testcase name="testCMV12False" classname="DecideTest" time="0"/>
+  <testcase name="testCMV13False" classname="DecideTest" time="0.001"/>
+  <testcase name="testMAINFalse" classname="DecideTest" time="0"/>
+  <testcase name="testCMV14False" classname="DecideTest" time="0"/>
+  <testcase name="testDecideTrue" classname="DecideTest" time="0"/>
+  <testcase name="testMAINTrue" classname="DecideTest" time="0"/>
+</testsuite>
