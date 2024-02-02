@@ -57,79 +57,79 @@ The main() function creates the CMV, PUM, and FUV to determine whether to launch
 
 #### boolean [decide](https://github.com/Emiesce/dd2480-assignment1/blob/366f5f4aca55043c96d0d8cb75c5dbdfeffd1ad6/Decide.java#L74)
 ```java
-boolean decide()
+public boolean decide()
 ```
 Decide checks the array elements of FUV to determine the launch.
 
 #### boolean[] [FUVCreator](https://github.com/Emiesce/dd2480-assignment1/blob/366f5f4aca55043c96d0d8cb75c5dbdfeffd1ad6/Decide.java#L85C1-L102C6)
 ```java
-boolean[] FUVCreator()
+public boolean[] FUVCreator()
 ```
 Assigns boolean values to array elements in FUV according to conditions determined by array elements from PUV and PUM.
 
 #### void [PUMCreator](https://github.com/Emiesce/dd2480-assignment1/blob/366f5f4aca55043c96d0d8cb75c5dbdfeffd1ad6/Decide.java#L104-L120)
 ```java
-void PUMCreator()
+public void PUMCreator()
 ```
 Assigns boolean values to array elements in PUM according to conditions determined by array elements in LCM and CMV.
 
 #### void [CMVCreator](https://github.com/Emiesce/dd2480-assignment1/blob/41a8d747ac75f96ba778b42c23d49db67f1f0546/Decide.java#L122-L175)
 ```java
-void CMVCreator()
+public void CMVCreator()
 ```
 Runs the functions CMV0 - CMV14 and assigns the boolean outputs to their corresponding array elements in CMV
 
 #### boolean [CMV0](https://github.com/Emiesce/dd2480-assignment1/blob/41a8d747ac75f96ba778b42c23d49db67f1f0546/Decide.java#L177-L193)
 ```java
-boolean CMV0(double length1)
+public boolean CMV0(double length1)
 ```
 Determine if there exists at least one set of two consecutive data points that are a distance greater than `LENGTH1` apart.
 
 #### boolean [CMV1](https://github.com/Emiesce/dd2480-assignment1/blob/41a8d747ac75f96ba778b42c23d49db67f1f0546/Decide.java#L195-L217)
 ```java
-boolean CMV1(double radius1)
+public boolean CMV1(double radius1)
 ```
 Determine if there exists at least one set of three consecutive data points that cannot all be contained within or on a circle of radius `RADIUS1`.
 
 #### boolean [CMV2](https://github.com/Emiesce/dd2480-assignment1/blob/41a8d747ac75f96ba778b42c23d49db67f1f0546/Decide.java#L219-L263)
 ```java
-boolean CMV2(double epsilon)
+public boolean CMV2(double epsilon)
 ```
 Determine if there exists at least one set of three consecutive data points which form an angle such that: angle < (`PI − EPSILON`) or angle > (`PI + EPSILON`). The second of the three consecutive points is always the vertex of the angle. If either the first point or the last point (or both) coincides with the vertex, the angle is undefined.
 
 #### boolean [CMV3](https://github.com/Emiesce/dd2480-assignment1/blob/41a8d747ac75f96ba778b42c23d49db67f1f0546/Decide.java#L265-L288)
 ```java
-boolean CMV3(double area1)
+public boolean CMV3(double area1)
 ```
 Determine if there exists at least one set of three consecutive data points that are the vertices of a triangle with an area greater than `AREA1`.
 
 #### boolean [CMV4](https://github.com/Emiesce/dd2480-assignment1/blob/41a8d747ac75f96ba778b42c23d49db67f1f0546/Decide.java#L290-L348)
 ```java
-boolean CMV4(int qpts, int quads)
+public boolean CMV4(int qpts, int quads)
 ```
 Determine if there exists at least one set of `QPTS` consecutive data points that lie in more than `QUADS` quadrants.
 
 #### boolean [CMV5](https://github.com/Emiesce/dd2480-assignment1/blob/41a8d747ac75f96ba778b42c23d49db67f1f0546/Decide.java#L350-L359)
 ```java
-boolean CMV5()
+public boolean CMV5()
 ```
 Determine if there exists at least one set of two consecutive data points, (`X[i]`,`Y[i]`) and (`X[j]`,`Y[j]`), such that `X[j] - X[i] < 0`. (where i = j-1).
 
 #### boolean [CMV6](https://github.com/Emiesce/dd2480-assignment1/blob/41a8d747ac75f96ba778b42c23d49db67f1f0546/Decide.java#L361-L390)
 ```java
-boolean CMV6(double dist, int npts)
+public boolean CMV6(double dist, int npts)
 ```
 Determine if there exists at least one set of `NPTS` consecutive data points such that at least one of the points lies a distance greater than `DIST` from the line joining the first and last of these `NPTS` points. Condition is not met when `NUMPOINTS < 3`.
 
 #### boolean [CMV7](https://github.com/Emiesce/dd2480-assignment1/blob/41a8d747ac75f96ba778b42c23d49db67f1f0546/Decide.java#L392-L413)
 ```java
-boolean CMV7(int kpts, double length1)
+public boolean CMV7(int kpts, double length1)
 ```
 Determine if there exists at least one set of two data points separated by exactly `KPTS` consecutive intervening points that are a distance greater than `LENGTH1` apart. The condition is not met when `NUMPOINTS < 3`.
 
 #### boolean [CMV8](https://github.com/Emiesce/dd2480-assignment1/blob/41a8d747ac75f96ba778b42c23d49db67f1f0546/Decide.java#L417-L443)
 ```java
-boolean CMV8(double radius1, int apts, int bpts)
+public boolean CMV8(double radius1, int apts, int bpts)
 ```
 Determine if there exists at least one set of three data points separated by exactly `APTS` and `BPTS` consecutive intervening points, respectively, that cannot be contained within or on a circle of radius `RADIUS1`.
 
@@ -153,7 +153,7 @@ Determine if there exists at least one set of two data points, (`X[i]`,`Y[i]`) a
 
 #### boolean [CMV12](https://github.com/Emiesce/dd2480-assignment1/blob/41a8d747ac75f96ba778b42c23d49db67f1f0546/Decide.java#L524-L559)
 ```java
-boolean CMV12(double length1, double length2, int kpts)
+public boolean CMV12(double length1, double length2, int kpts)
 ```
 Determine if the two following conditions are both true (condition is not met when `NUMPOINTS < 3`):
 1. There exists at least one set of two data points, separated by exactly `KPTS` consecutive intervening points, which are a distance greater than `LENGTH1` apart.
@@ -169,7 +169,7 @@ Determine if the two following conditions are both true (condition is not met wh
 
 #### boolean [CMV14](https://github.com/Emiesce/dd2480-assignment1/blob/41a8d747ac75f96ba778b42c23d49db67f1f0546/Decide.java#L595-L634)
 ```java
-boolean CMV14(double area1, double area2, int epts, int fpts)
+public boolean CMV14(double area1, double area2, int epts, int fpts)
 ```
 Determine if the two following conditions are both true (condition is not met when `NUMPOINTS < 5`):
 1. There exists at least one set of three data points, separated by exactly `EPTS` and `FPTS` consecutive intervening points, respectively, that are the vertices of a triangle with an area greater than `AREA1`.
@@ -177,7 +177,7 @@ Determine if the two following conditions are both true (condition is not met wh
 
 #### double [distance](https://github.com/Emiesce/dd2480-assignment1/blob/41a8d747ac75f96ba778b42c23d49db67f1f0546/Decide.java#L636-L638)
 ```java
-double distance(double x1, double y1, double x2, double y2)
+public double distance(double x1, double y1, double x2, double y2)
 ```
 Helper function to calculate the Euclidean distance between two points in a two-dimensional space.
 
