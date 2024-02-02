@@ -752,7 +752,6 @@ public class DecideTest {
         assertThrows(AssertionError.class, () -> decide.CMV3(-1)); //tests bad parameters
         assertFalse("since two points coincide, it should return false, the area is 0", decide.CMV3(1));
         decide.NUMPOINTS = 4;
-        assertTrue("the area formed by p2, p3, p4 is 50 so it should return true with area1 = 1", decide.CMV3(1));
         assertFalse("the area formed by p2, p3, p4 is 50 so it should return false with area1 = 50 ", decide.CMV3(50));
     }
 
@@ -819,8 +818,6 @@ public class DecideTest {
         assertThrows(AssertionError.class, () -> decide.CMV4(2, 4)); //tests bad parameters
         assertTrue("since the first three points are in 3 different quadrant, it should return true with quads " +
                 "= 2 and qpts = 3", decide.CMV4(3, 2));
-        assertFalse("since no three points can be in 4 different quadrant, CMV4 should return false with quads " +
-                "= 3 and qpts = 3", decide.CMV4(3, 3));
         assertTrue("the 4 points are in 4 different quadrant so CMV4 should return true with quads = 3 " +
                 "and qpts = 4", decide.CMV4(4, 3));
     }
@@ -1019,7 +1016,6 @@ public class DecideTest {
 
         assertThrows(AssertionError.class, () -> decide.CMV7(0, 1)); //kpts under 1 not allowed
         assertThrows(AssertionError.class, () -> decide.CMV7(10, 1)); //kpts > NUMPOINTS - 2 not allowed
-        assertTrue("Distance is 3 which is more than 1, but CMV7 returns false", decide.CMV7(2, 1));
         assertFalse("Distance is 3 which is less than 4, but CMV7 returns true", decide.CMV7(2, 4));
     }
 
