@@ -30,7 +30,7 @@ Unless a new issue or bug arises, this program should not be modified.
 
 ## Statement of Contributions
 
-**Alexander**: Implemented CMV8, 10, 12 and 14 along with their tests, Reviewed CMV 7, 9, 11 and 13. Refactored the base code to allow for easier testing and since using static keyword is not the normal Java convention. Set up and researched how to use JUnit for Unit testing to pave the way for the tests. Created helper function triangleArea that takes 3 points and calculates the area that those points form.
+**Alexander**: Implemented CMV8, 10, 12 and 14 along with their tests, Reviewed CMV 7, 9, 11 and 13. Refactored the base code to allow for easier testing and since using static keyword is not the normal Java convention. Set up and researched how to use JUnit for Unit testing to pave the way for the tests. Created helper function triangleArea that takes 3 points and calculates the area that those points form. Refactored project to the Maven framework.
 
 **Iley**: Implemented CMV7, 9, 11, 13 along with their tests. Reviewed CMV8, 12, 14. Also created the helper function angleBetweenPoints and a test for it.
 
