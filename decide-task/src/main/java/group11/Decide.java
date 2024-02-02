@@ -1,3 +1,4 @@
+package group11;
 import static java.lang.Math.*;
 
 public class Decide {
