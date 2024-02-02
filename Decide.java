@@ -4,7 +4,6 @@ public class Decide {
 
     public final double PI = 3.1415926535;
 
-
     public class Parameters{
         double LENGTH1;    // Length in LICs 0, 7, 12
         double RADIUS1;    // Radius in LICs 1, 8, 13
@@ -60,18 +59,20 @@ public class Decide {
         LT, EQ, GT
     }
 
-    public void main(String[] args){
-        CMVCreator();
-        PUMCreator();
-        FUVCreator();
-        boolean result = decide();
-        if(result){
+    public static void main(String[] args){
+        Decide decide = new Decide();
+        decide.CMVCreator();
+        decide.PUMCreator();
+        decide.FUVCreator();
+        boolean result = decide.decide();
+        if (result){
             System.out.println("YES");
-        }else{
+        } else {
             System.out.println("NO");
         }
     }
-     boolean decide(){
+
+    boolean decide(){
         // If any element in FUV is false, return false/no launch
         for (int i = 0; i < 15; ++i) {
             if(!FUV[i]){
@@ -82,7 +83,7 @@ public class Decide {
         return true;
     }
     
-     boolean[] FUVCreator(){
+    boolean[] FUVCreator(){
         for(int i = 0; i < 15; ++i) {
             if (!PUV[i]) { // If PUV[i] is false, FUV[i] is True
                 FUV[i] = true;
@@ -101,8 +102,7 @@ public class Decide {
         return new boolean[0];
     }
 
-     void PUMCreator(){
-        //TODO
+    void PUMCreator(){
         for(int i = 0; i < 15; ++i){
             for(int j = 0; j < 15; ++j){
                 if(LCM[i][j]==Connectors.NOTUSED){
@@ -120,7 +120,6 @@ public class Decide {
     }
 
     void CMVCreator(){
-
         // Set CMV[i] True if LIC[i] is true, else false
         for (int i = 0; i < 15; ++i) {
             switch (i) {
@@ -171,7 +170,6 @@ public class Decide {
                     break;
             }
         }
-        
     }
 
     boolean CMV0(double length1){
@@ -192,7 +190,7 @@ public class Decide {
         return false;
     }
     
-     boolean CMV1(double radius1){
+    boolean CMV1(double radius1){
         assert radius1 >= 0;
         double x1 = x[0]; 
         double y1 = y[0]; 
@@ -216,7 +214,7 @@ public class Decide {
         return false;      
     }
 
-     boolean CMV2(double epsilon){
+    boolean CMV2(double epsilon){
         assert (epsilon >= 0 && epsilon < PI);
         double x1 = x[0]; 
         double y1 = y[0]; 
@@ -287,7 +285,7 @@ public class Decide {
         return false;       
     }
 
-     boolean CMV4(int qpts, int quads){
+    boolean CMV4(int qpts, int quads){
         assert (2 <= qpts && qpts <= NUMPOINTS);
         assert (1 <= quads && quads <= 3);
         //number of points in each quadrant
@@ -411,10 +409,8 @@ public class Decide {
         }
         return false;
     }
-  
-  
 
-     boolean CMV8(double radius1, int apts, int bpts){
+    boolean CMV8(double radius1, int apts, int bpts){
         assert(1 <= apts && 1 <= bpts);
         assert(apts + bpts <= NUMPOINTS-3);
         if(NUMPOINTS < 5) return false;
@@ -442,6 +438,16 @@ public class Decide {
         return false;
     }
 
+    /**
+     * Determine if there exists at least one set of three data points separated by exactly `CPTS` and `DPTS` consecutive 
+     * intervening points, respectively, that form an angle such that: angle < (`PI − EPSILON`) or angle > (`PI + EPSILON`). 
+     * The second point of the set of three points is always the vertex of the angle. If either the first point or the 
+     * last point (or both) coincide with the vertex, the angle is undefined.
+     * @param cpts
+     * @param dpts
+     * @param epsilon
+     * @return
+     */
     public boolean CMV9(int cpts, int dpts, double epsilon) {
         assert(cpts + dpts <= NUMPOINTS - 3);
         assert(cpts >= 1);
@@ -470,6 +476,15 @@ public class Decide {
         return false;
     }
 
+    /**
+     * Determine if there exists at least one set of three data points separated by exactly `EPTS` and `FPTS` 
+     * consecutive intervening points, respectively, that are the vertices of a triangle with an area greater than `AREA1`. 
+     * Condition is not met when `NUMPOINTS < 5`.
+     * @param area1
+     * @param epts
+     * @param fpts
+     * @return true if the area of the triangle is greater than area1, false otherwise
+     */
     public boolean CMV10(double area1, int epts, int fpts){
         assert (1 <= epts && 1 <= fpts);
         assert (epts + fpts <= NUMPOINTS-3);
@@ -501,7 +516,13 @@ public class Decide {
         return false;
     }
 
-
+    /**
+     * Function to determine if there exists at least one set of two data points, (`X[i]`,`Y[i]`) and (`X[j]`,`Y[j]`), 
+     * separated by exactly `GPTS` consecutive intervening points, such that `X[j] - X[i] < 0`. (where i < j ). 
+     * Condition is not met when `NUMPOINTS < 3`.
+     * @param gpts
+     * @return true if the condition is met, false otherwise
+     */
     public boolean CMV11(int gpts) {
         assert(gpts >= 1);
         assert(gpts <= NUMPOINTS - 2);
@@ -521,7 +542,7 @@ public class Decide {
         return false;
     }
 
-     boolean CMV12(double length1, double length2, int kpts){
+    boolean CMV12(double length1, double length2, int kpts){
         assert (0 <= length1 && 0 <= length2);
         if(NUMPOINTS < 3) return false;
 
@@ -558,6 +579,20 @@ public class Decide {
         return false;
     }
 
+    /**
+     * Function to determine if the two following conditions are both true (condition is not met when `NUMPOINTS < 5`):
+     * 
+    1. There exists at least one set of three data points, separated by exactly `APTS` and `BPTS` consecutive 
+        intervening points, respectively, that cannot be contained within or on a circle of radius `RADIUS1`.
+
+    2. There is at least one set of three data points with intervals of APTS and BPTS points, respectively, 
+        that can be contained in or on a circle of radius RADIUS2.
+     * @param apts
+     * @param bpts
+     * @param radius1
+     * @param radius2
+     * @return true if the condition is met, false otherwise
+     */
     public boolean CMV13(int apts, int bpts, double radius1, double radius2) {
         assert(radius2 >= 0);
         
@@ -592,7 +627,7 @@ public class Decide {
         return false;
     }
 
-     boolean CMV14(double area1, double area2, int epts, int fpts){
+    boolean CMV14(double area1, double area2, int epts, int fpts){
         assert(area2 >= 0);
         if(NUMPOINTS < 5) return false;
 
@@ -633,7 +668,7 @@ public class Decide {
         return false;
     }
 
-     double distance(double x1, double y1, double x2, double y2){
+    double distance(double x1, double y1, double x2, double y2){
         return pow((pow(x1-x2, 2) + pow(y1-y2, 2)), 0.5); 
     }
 
@@ -701,7 +736,10 @@ public class Decide {
         return circumradius;
     }
 
-    // Angle between three points
+    /**
+     * helper function to calculate the angle between three points given their coordinates
+     * @return the angle between the three points
+     */
     public double angleBetweenPoints(double x1, double y1, double x2, double y2, double x3, double y3) {
         double aX = x1 - x2;
         double aY = y1 - y2;
@@ -717,5 +755,4 @@ public class Decide {
 
         return angle;
     }
-    
 }
