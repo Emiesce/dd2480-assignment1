@@ -843,6 +843,7 @@ public class Decide {
         double s = (a + b + c) / 2.0; // semiperimeter of the triangle
         double circumradius = (a * b * c) /
                 (4 * pow(s * (a + b - s) * (a + c - s) * (b + c - s), 0.5));
+                
         return circumradius;
     }
 
